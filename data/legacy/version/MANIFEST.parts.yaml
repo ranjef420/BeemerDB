@@ -1,0 +1,1604 @@
+# MANIFEST.parts.yaml (generated from index.sqlite)
+schema: 1
+model: "R1150RT (R22) — Type 0499 (Authority)"
+source_root: "parts/pdf"
+conventions:
+  id_format: "R22-0499-{group}-{slug}"
+  group_dirs: ["11","12","13","16","17","18","21","23","31","32","33","34","35","36","46","51","52","61","62","63","65"]
+entries:
+  - id: R22-0499-11-camshaft
+    group: 11
+    title: "Camshaft"
+    diagram: null
+    path: "11 - Engine/Camshaft.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-11-camshaft-supporting-bracket
+    group: 11
+    title: "Camshaft Supporting Bracket"
+    diagram: null
+    path: "11 - Engine/Camshaft Supporting Bracket.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-11-connecting-rod-connecting-rod-bearing
+    group: 11
+    title: "Connecting Rod : Connecting Rod Bearing"
+    diagram: null
+    path: "11 - Engine/Connecting Rod : Connecting Rod Bearing.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-11-crankshaft-attaching-parts
+    group: 11
+    title: "Crankshaft Attaching Parts"
+    diagram: null
+    path: "11 - Engine/Crankshaft Attaching Parts.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-11-cylinder
+    group: 11
+    title: "Cylinder"
+    diagram: null
+    path: "11 - Engine/Cylinder.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-11-cylinder-double-ignition
+    group: 11
+    title: "Cylinder Double-Ignition"
+    diagram: null
+    path: "11 - Engine/Cylinder Double-Ignition.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-11-cylinder-head
+    group: 11
+    title: "Cylinder Head"
+    diagram: null
+    path: "11 - Engine/Cylinder Head.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-11-cylinder-head-cover-double-ignition
+    group: 11
+    title: "Cylinder Head Cover – Double-Ignition"
+    diagram: null
+    path: "11 - Engine/Cylinder Head Cover – Double-Ignition.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-11-cylinder-head-cover-mounting-parts
+    group: 11
+    title: "Cylinder Head Cover-Mounting Parts"
+    diagram: null
+    path: "11 - Engine/Cylinder Head Cover-Mounting Parts.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-11-cylinder-head-double-ignition
+    group: 11
+    title: "Cylinder Head Double-Ignition"
+    diagram: null
+    path: "11 - Engine/Cylinder Head Double-Ignition.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-11-double-ignition
+    group: 11
+    title: "Double-Ignition"
+    diagram: null
+    path: "11 - Engine/Double-Ignition.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-11-engine
+    group: 11
+    title: "Engine"
+    diagram: null
+    path: "11 - Engine/Engine.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-11-engine-housing
+    group: 11
+    title: "Engine Housing"
+    diagram: null
+    path: "11 - Engine/Engine Housing.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-11-engine-ventilation
+    group: 11
+    title: "Engine Ventilation"
+    diagram: null
+    path: "11 - Engine/Engine Ventilation.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-11-front-cover-alternator-support-cover
+    group: 11
+    title: "Front Cover-Alternator Support Cover "
+    diagram: null
+    path: "11 - Engine/Front Cover-Alternator Support Cover .pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-11-lubrication-system-oil-filter
+    group: 11
+    title: "Lubrication System–Oil Filter "
+    diagram: null
+    path: "11 - Engine/Lubrication System–Oil Filter .pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-11-mounting-point-crankcase-left
+    group: 11
+    title: "Mounting Point Crankcase Left"
+    diagram: null
+    path: "11 - Engine/Mounting Point Crankcase Left.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-11-mounting-point-crankcase-right
+    group: 11
+    title: "Mounting Point Crankcase Right"
+    diagram: null
+    path: "11 - Engine/Mounting Point Crankcase Right.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-11-oil-pump-single-parts
+    group: 11
+    title: "Oil Pump Single Parts"
+    diagram: null
+    path: "11 - Engine/Oil Pump Single Parts.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-11-piston-single-components
+    group: 11
+    title: "Piston – Single Components"
+    diagram: null
+    path: "11 - Engine/Piston – Single Components.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-11-rocker-arm-shaft-valve-lifter
+    group: 11
+    title: "Rocker Arm-Shaft-Valve Lifter "
+    diagram: null
+    path: "11 - Engine/Rocker Arm-Shaft-Valve Lifter .pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-11-short-engine
+    group: 11
+    title: "Short Engine"
+    diagram: null
+    path: "11 - Engine/Short Engine.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-11-spark-plug-cover
+    group: 11
+    title: "Spark Plug Cover"
+    diagram: null
+    path: "11 - Engine/Spark Plug Cover.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-11-timing-chain-chain-tensioner-slide-rail
+    group: 11
+    title: "Timing Chain-Chain Tensioner-Slide Rail "
+    diagram: null
+    path: "11 - Engine/Timing Chain-Chain Tensioner-Slide Rail .pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-11-timing-gear-intake-valve-exhaust-valve
+    group: 11
+    title: "Timing Gear–Intake Valve–Exhaust Valve"
+    diagram: null
+    path: "11 - Engine/Timing Gear–Intake Valve–Exhaust Valve.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-11-valve-train-timing-chain-camshaft
+    group: 11
+    title: "Valve Train–Timing Chain Camshaft "
+    diagram: null
+    path: "11 - Engine/Valve Train–Timing Chain Camshaft .pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-12-alternator
+    group: 12
+    title: "Alternator"
+    diagram: null
+    path: "12 - Engine Electrics/Alternator.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-12-alternator-mounting-parts
+    group: 12
+    title: "Alternator Mounting Parts"
+    diagram: null
+    path: "12 - Engine Electrics/Alternator Mounting Parts.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-12-ignition-system-trigger-contact
+    group: 12
+    title: "Ignition System - Trigger Contact"
+    diagram: null
+    path: "12 - Engine Electrics/Ignition System - Trigger Contact.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-12-ignition-system-double-ignition
+    group: 12
+    title: "Ignition System – Double-Ignition"
+    diagram: null
+    path: "12 - Engine Electrics/Ignition System – Double-Ignition.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-12-ignition-system-plugs-and-ignition-coil
+    group: 12
+    title: "Ignition System – Plugs & Ignition Coil"
+    diagram: null
+    path: "12 - Engine Electrics/Ignition System – Plugs & Ignition Coil.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-12-starter
+    group: 12
+    title: "Starter"
+    diagram: null
+    path: "12 - Engine Electrics/Starter.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-12-starter-single-parts
+    group: 12
+    title: "Starter Single Parts"
+    diagram: null
+    path: "12 - Engine Electrics/Starter Single Parts.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-12-switch-and-sensors
+    group: 12
+    title: "Switch & Sensors"
+    diagram: null
+    path: "12 - Engine Electrics/Switch & Sensors.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-13-control-unit
+    group: 13
+    title: "Control Unit"
+    diagram: null
+    path: "13 - Fuel Preparation/Control Unit.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-13-control-unit-double-ignition
+    group: 13
+    title: "Control Unit – Double-Ignition"
+    diagram: null
+    path: "13 - Fuel Preparation/Control Unit – Double-Ignition.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-13-intake-manifold
+    group: 13
+    title: "Intake Manifold"
+    diagram: null
+    path: "13 - Fuel Preparation/Intake Manifold.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-13-intake-silencer-filter-cartridge-intake-silencer-and-filter-cartridge
+    group: 13
+    title: "Intake Silencer - Filter Cartridge - Intake Silencer & Filter Cartridge"
+    diagram: null
+    path: "13 - Fuel Preparation/Intake Silencer - Filter Cartridge - Intake Silencer & Filter Cartridge.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-13-throttle-housing-assy
+    group: 13
+    title: "Throttle Housing Assy"
+    diagram: null
+    path: "13 - Fuel Preparation/Throttle Housing Assy.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-16-covering-fuel-tank
+    group: 16
+    title: "Covering Fuel Tank"
+    diagram: null
+    path: "16 - Fuel Supply/Covering Fuel Tank.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-16-filler-cap
+    group: 16
+    title: "Filler Cap"
+    diagram: null
+    path: "16 - Fuel Supply/Filler Cap.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-16-fuel-distributor-pressure-regulator
+    group: 16
+    title: "Fuel Distributor - Pressure Regulator"
+    diagram: null
+    path: "16 - Fuel Supply/Fuel Distributor - Pressure Regulator.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-16-fuel-supply-quick-coupling
+    group: 16
+    title: "Fuel Supply - Quick Coupling"
+    diagram: null
+    path: "16 - Fuel Supply/Fuel Supply - Quick Coupling.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-16-fuel-supply-pump-and-filter
+    group: 16
+    title: "Fuel Supply Pump & Filter"
+    diagram: null
+    path: "16 - Fuel Supply/Fuel Supply Pump & Filter.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-16-fuel-tank
+    group: 16
+    title: "Fuel Tank"
+    diagram: null
+    path: "16 - Fuel Supply/Fuel Tank.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-16-fuel-tank-attaching-parts
+    group: 16
+    title: "Fuel Tank - Attaching Parts"
+    diagram: null
+    path: "16 - Fuel Supply/Fuel Tank - Attaching Parts.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-16-fuel-tank-ventilation-attaching-parts
+    group: 16
+    title: "Fuel Tank Ventilation Attaching Parts"
+    diagram: null
+    path: "16 - Fuel Supply/Fuel Tank Ventilation Attaching Parts.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-16-petrol-gas-gauge
+    group: 16
+    title: "Petrol (Gas) Gauge"
+    diagram: null
+    path: "16 - Fuel Supply/Petrol (Gas) Gauge.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-16-sending-unit
+    group: 16
+    title: "Sending Unit"
+    diagram: null
+    path: "16 - Fuel Supply/Sending Unit.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-17-additional-fan-and-mounting-parts
+    group: 17
+    title: "Additional Fan and Mounting Parts"
+    diagram: null
+    path: "17 - Cooling/Additional Fan and Mounting Parts.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-17-oil-cooler-and-oil-cooling-pipe
+    group: 17
+    title: "Oil Cooler & Oil Cooling Pipe"
+    diagram: null
+    path: "17 - Cooling/Oil Cooler & Oil Cooling Pipe.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-18-exhaust-manifold
+    group: 18
+    title: "Exhaust Manifold"
+    diagram: null
+    path: "18 - Exhaust System/Exhaust Manifold.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-18-exhaust-system-parts-with-mounts
+    group: 18
+    title: "Exhaust System Parts with Mounts"
+    diagram: null
+    path: "18 - Exhaust System/Exhaust System Parts with Mounts.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-18-muffler
+    group: 18
+    title: "Muffler"
+    diagram: null
+    path: "18 - Exhaust System/Muffler.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-21-clutch-control
+    group: 21
+    title: "Clutch Control"
+    diagram: null
+    path: "21 - Clutch/Clutch Control.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-21-clutch-single-parts
+    group: 21
+    title: "Clutch – Single Parts"
+    diagram: null
+    path: "21 - Clutch/Clutch – Single Parts.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-23-6-speed-transmission-shift-components-23-0744-23_0744
+    group: 23
+    title: "6-Speed Transmission Shift Components (23_0744)"
+    diagram: "23_0744"
+    path: "23 - Transmission/6-Speed Transmission Shift Components (23_0744).pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-23-6-speed-transmission-shift-components-23-0750-23_0750
+    group: 23
+    title: "6-Speed Transmission Shift Components (23_0750)"
+    diagram: "23_0750"
+    path: "23 - Transmission/6-Speed Transmission Shift Components (23_0750).pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-23-drive-shaft
+    group: 23
+    title: "Drive Shaft"
+    diagram: null
+    path: "23 - Transmission/Drive Shaft.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-23-gearbox-oil-seal
+    group: 23
+    title: "Gearbox Oil Seal"
+    diagram: null
+    path: "23 - Transmission/Gearbox Oil Seal.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-23-intermediate-shaft
+    group: 23
+    title: "Intermediate Shaft"
+    diagram: null
+    path: "23 - Transmission/Intermediate Shaft.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-23-manual-transmission
+    group: 23
+    title: "Manual Transmission"
+    diagram: null
+    path: "23 - Transmission/Manual Transmission.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-23-output-shaft
+    group: 23
+    title: "Output Shaft"
+    diagram: null
+    path: "23 - Transmission/Output Shaft.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-23-shift-lever
+    group: 23
+    title: "Shift Lever"
+    diagram: null
+    path: "23 - Transmission/Shift Lever.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-23-transmission-housing-and-mounting-parts
+    group: 23
+    title: "Transmission Housing & Mounting Parts"
+    diagram: null
+    path: "23 - Transmission/Transmission Housing & Mounting Parts.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-31-fork-leg
+    group: 31
+    title: "Fork Leg"
+    diagram: null
+    path: "31 - Front Suspension/Fork Leg.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-31-fork-slider-and-lower-fork-bridge
+    group: 31
+    title: "Fork Slider & Lower Fork Bridge"
+    diagram: null
+    path: "31 - Front Suspension/Fork Slider & Lower Fork Bridge.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-31-spring-strut-front
+    group: 31
+    title: "Spring Strut – Front"
+    diagram: null
+    path: "31 - Front Suspension/Spring Strut – Front.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-31-stanchion
+    group: 31
+    title: "Stanchion"
+    diagram: null
+    path: "31 - Front Suspension/Stanchion.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-31-trailing-arm
+    group: 31
+    title: "Trailing Arm"
+    diagram: null
+    path: "31 - Front Suspension/Trailing Arm.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-31-upper-fork-cross-brace
+    group: 31
+    title: "Upper Fork Cross Brace"
+    diagram: null
+    path: "31 - Front Suspension/Upper Fork Cross Brace.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-32-bowden-cable-and-cable-distributor
+    group: 32
+    title: "Bowden Cable & Cable Distributor"
+    diagram: null
+    path: "32 - Steering/Bowden Cable & Cable Distributor.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-32-clutch-control-assembly
+    group: 32
+    title: "Clutch Control Assembly"
+    diagram: null
+    path: "32 - Steering/Clutch Control Assembly.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-32-clutch-fitting-single-parts
+    group: 32
+    title: "Clutch Fitting – Single Parts"
+    diagram: null
+    path: "32 - Steering/Clutch Fitting – Single Parts.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-32-handbrake-lever
+    group: 32
+    title: "Handbrake Lever"
+    diagram: null
+    path: "32 - Steering/Handbrake Lever.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-32-handlebar
+    group: 32
+    title: "Handlebar"
+    diagram: null
+    path: "32 - Steering/Handlebar.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-32-handlebar-grip-heated-77-4097
+    group: 32
+    title: "Handlebar Grip - Heated (77-4097)"
+    diagram: null
+    path: "32 - Steering/Handlebar Grip - Heated (77-4097).pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-32-heated-handlebar-grips
+    group: 32
+    title: "Heated Handlebar Grips"
+    diagram: null
+    path: "32 - Steering/Heated Handlebar Grips.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-32-parking-brake-fitting-single-parts
+    group: 32
+    title: "Parking Brake Fitting – Single Parts"
+    diagram: null
+    path: "32 - Steering/Parking Brake Fitting – Single Parts.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-33-bevel-gear-and-spacer-rings
+    group: 33
+    title: "Bevel Gear and Spacer Rings"
+    diagram: null
+    path: "33 - Rear Axle & Suspension/Bevel Gear and Spacer Rings.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-33-crowngear-set
+    group: 33
+    title: "Crowngear Set"
+    diagram: null
+    path: "33 - Rear Axle & Suspension/Crowngear Set.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-33-crowngear-and-spacer-rings
+    group: 33
+    title: "Crowngear and Spacer Rings"
+    diagram: null
+    path: "33 - Rear Axle & Suspension/Crowngear and Spacer Rings.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-33-drive-shaft
+    group: 33
+    title: "Drive Shaft"
+    diagram: null
+    path: "33 - Rear Axle & Suspension/Drive Shaft.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-33-rear-axle-housing-and-rod
+    group: 33
+    title: "Rear Axle Housing and Rod"
+    diagram: null
+    path: "33 - Rear Axle & Suspension/Rear Axle Housing and Rod.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-33-rear-wheel-swinging-arm
+    group: 33
+    title: "Rear Wheel Swinging Arm"
+    diagram: null
+    path: "33 - Rear Axle & Suspension/Rear Wheel Swinging Arm.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-33-rear-axle-drive
+    group: 33
+    title: "Rear-Axle-Drive"
+    diagram: null
+    path: "33 - Rear Axle & Suspension/Rear-Axle-Drive.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-33-spring-strut-rear-hydraulic
+    group: 33
+    title: "Spring Strut Rear Hydraulic"
+    diagram: null
+    path: "33 - Rear Axle & Suspension/Spring Strut Rear Hydraulic.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-34-brake-fluid
+    group: 34
+    title: "Brake Fluid"
+    diagram: null
+    path: "34 - Brakes/Brake Fluid.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-34-brake-line-and-integral-abs-front
+    group: 34
+    title: "Brake Line & Integral ABS – Front"
+    diagram: null
+    path: "34 - Brakes/Brake Line & Integral ABS – Front.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-34-brake-line-and-integral-abs-rear
+    group: 34
+    title: "Brake Line & Integral ABS – Rear"
+    diagram: null
+    path: "34 - Brakes/Brake Line & Integral ABS – Rear.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-34-brake-master-cylinder-rear-integral-abs
+    group: 34
+    title: "Brake Master Cylinder Rear – Integral ABS"
+    diagram: null
+    path: "34 - Brakes/Brake Master Cylinder Rear – Integral ABS.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-34-fluid-container-rear
+    group: 34
+    title: "Fluid Container Rear"
+    diagram: null
+    path: "34 - Brakes/Fluid Container Rear.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-34-front-wheel-brake-integral-abs
+    group: 34
+    title: "Front Wheel Brake – Integral ABS"
+    diagram: null
+    path: "34 - Brakes/Front Wheel Brake – Integral ABS.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-34-pressure-modulator-integral-abs
+    group: 34
+    title: "Pressure Modulator Integral ABS"
+    diagram: null
+    path: "34 - Brakes/Pressure Modulator Integral ABS.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-34-rear-wheel-brake
+    group: 34
+    title: "Rear Wheel Brake"
+    diagram: null
+    path: "34 - Brakes/Rear Wheel Brake.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-34-wheelspeed-sensor-and-integral-abs-front
+    group: 34
+    title: "Wheelspeed Sensor & Integral ABS – Front"
+    diagram: null
+    path: "34 - Brakes/Wheelspeed Sensor & Integral ABS – Front.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-34-wheelspeed-sensor-and-integral-abs-rear
+    group: 34
+    title: "Wheelspeed Sensor & Integral ABS – Rear"
+    diagram: null
+    path: "34 - Brakes/Wheelspeed Sensor & Integral ABS – Rear.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-35-brake-pedal
+    group: 35
+    title: "Brake Pedal"
+    diagram: null
+    path: "35 - Pedals/Brake Pedal.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-36-cast-rim-front
+    group: 36
+    title: "Cast Rim – Front"
+    diagram: null
+    path: "36 - Wheels/Cast Rim – Front.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-36-cast-rim-rear
+    group: 36
+    title: "Cast Rim – Rear"
+    diagram: null
+    path: "36 - Wheels/Cast Rim – Rear.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-46-backrest-cushion-33-l-topcase-set
+    group: 46
+    title: "Backrest Cushion 33 L Topcase (Set)"
+    diagram: null
+    path: "46 - Frame Fairing & Cases/Backrest Cushion 33 L Topcase (Set).pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-46-bag-for-top-case
+    group: 46
+    title: "Bag for Top Case"
+    diagram: null
+    path: "46 - Frame Fairing & Cases/Bag for Top Case.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-46-center-stand
+    group: 46
+    title: "Center Stand"
+    diagram: null
+    path: "46 - Frame Fairing & Cases/Center Stand.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-46-city-system-case
+    group: 46
+    title: "City System Case"
+    diagram: null
+    path: "46 - Frame Fairing & Cases/City System Case.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-46-cover-f-city-system-case
+    group: 46
+    title: "Cover F City System Case"
+    diagram: null
+    path: "46 - Frame Fairing & Cases/Cover F City System Case.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-46-cover-left
+    group: 46
+    title: "Cover Left"
+    diagram: null
+    path: "46 - Frame Fairing & Cases/Cover Left.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-46-covering-inner
+    group: 46
+    title: "Covering Inner"
+    diagram: null
+    path: "46 - Frame Fairing & Cases/Covering Inner.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-46-engine-suspension
+    group: 46
+    title: "Engine Suspension"
+    diagram: null
+    path: "46 - Frame Fairing & Cases/Engine Suspension.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-46-fairing-bracket
+    group: 46
+    title: "Fairing Bracket"
+    diagram: null
+    path: "46 - Frame Fairing & Cases/Fairing Bracket.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-46-fairing-side-section
+    group: 46
+    title: "Fairing Side Section"
+    diagram: null
+    path: "46 - Frame Fairing & Cases/Fairing Side Section.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-46-fire-extinguisher-and-holder
+    group: 46
+    title: "Fire Extinguisher & Holder"
+    diagram: null
+    path: "46 - Frame Fairing & Cases/Fire Extinguisher & Holder.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-46-footpeg-plate-mounting-parts
+    group: 46
+    title: "Footpeg Plate - Mounting Parts"
+    diagram: null
+    path: "46 - Frame Fairing & Cases/Footpeg Plate - Mounting Parts.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-46-front-chromium-plated-safety-bar
+    group: 46
+    title: "Front Chromium-Plated Safety Bar"
+    diagram: null
+    path: "46 - Frame Fairing & Cases/Front Chromium-Plated Safety Bar.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-46-front-frame
+    group: 46
+    title: "Front Frame"
+    diagram: null
+    path: "46 - Frame Fairing & Cases/Front Frame.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-46-front-mudguard
+    group: 46
+    title: "Front Mudguard"
+    diagram: null
+    path: "46 - Frame Fairing & Cases/Front Mudguard.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-46-front-and-rear-footpeg
+    group: 46
+    title: "Front and Rear Footpeg"
+    diagram: null
+    path: "46 - Frame Fairing & Cases/Front and Rear Footpeg.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-46-impact-strips-for-large-system-case
+    group: 46
+    title: "Impact Strips for Large System Case"
+    diagram: null
+    path: "46 - Frame Fairing & Cases/Impact Strips for Large System Case.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-46-installing-set-moulding-rocker-panel
+    group: 46
+    title: "Installing Set Moulding Rocker Panel"
+    diagram: null
+    path: "46 - Frame Fairing & Cases/Installing Set Moulding Rocker Panel.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-46-interior-bag-f-case
+    group: 46
+    title: "Interior Bag F Case"
+    diagram: null
+    path: "46 - Frame Fairing & Cases/Interior Bag F Case.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-46-knee-pad-and-foot-pad
+    group: 46
+    title: "Knee Pad & Foot Pad"
+    diagram: null
+    path: "46 - Frame Fairing & Cases/Knee Pad & Foot Pad.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-46-left-oddments-tray
+    group: 46
+    title: "Left Oddments Tray"
+    diagram: null
+    path: "46 - Frame Fairing & Cases/Left Oddments Tray.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-46-left-safety-bar-plastic
+    group: 46
+    title: "Left Safety Bar (Plastic)"
+    diagram: null
+    path: "46 - Frame Fairing & Cases/Left Safety Bar (Plastic).pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-46-lettering-authorities
+    group: 46
+    title: "Lettering Authorities"
+    diagram: null
+    path: "46 - Frame Fairing & Cases/Lettering Authorities.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-46-luggage-carrier
+    group: 46
+    title: "Luggage Carrier"
+    diagram: null
+    path: "46 - Frame Fairing & Cases/Luggage Carrier.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-46-mirror
+    group: 46
+    title: "Mirror"
+    diagram: null
+    path: "46 - Frame Fairing & Cases/Mirror.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-46-mounting-parts-f-protection-bar
+    group: 46
+    title: "Mounting Parts F Protection Bar"
+    diagram: null
+    path: "46 - Frame Fairing & Cases/Mounting Parts F Protection Bar.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-46-mudguard-rear-large
+    group: 46
+    title: "Mudguard, Rear Large"
+    diagram: null
+    path: "46 - Frame Fairing & Cases/Mudguard, Rear Large.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-46-protective-bar-rear-3-piece
+    group: 46
+    title: "Protective Bar Rear, 3-Piece"
+    diagram: null
+    path: "46 - Frame Fairing & Cases/Protective Bar Rear, 3-Piece.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-46-rear-frame
+    group: 46
+    title: "Rear Frame"
+    diagram: null
+    path: "46 - Frame Fairing & Cases/Rear Frame.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-46-registration-plate-mounting
+    group: 46
+    title: "Registration Plate Mounting"
+    diagram: null
+    path: "46 - Frame Fairing & Cases/Registration Plate Mounting.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-46-safety-bar-for-double-ignition
+    group: 46
+    title: "Safety Bar for Double-Ignition"
+    diagram: null
+    path: "46 - Frame Fairing & Cases/Safety Bar for Double-Ignition.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-46-side-stand
+    group: 46
+    title: "Side Stand"
+    diagram: null
+    path: "46 - Frame Fairing & Cases/Side Stand.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-46-sticker
+    group: 46
+    title: "Sticker"
+    diagram: null
+    path: "46 - Frame Fairing & Cases/Sticker.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-46-system-case
+    group: 46
+    title: "System Case"
+    diagram: null
+    path: "46 - Frame Fairing & Cases/System Case.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-46-system-case-single-components
+    group: 46
+    title: "System Case - Single Components"
+    diagram: null
+    path: "46 - Frame Fairing & Cases/System Case - Single Components.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-46-tail-part-lower
+    group: 46
+    title: "Tail Part Lower"
+    diagram: null
+    path: "46 - Frame Fairing & Cases/Tail Part Lower.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-46-top-case-single-parts
+    group: 46
+    title: "Top Case  - Single Parts"
+    diagram: null
+    path: "46 - Frame Fairing & Cases/Top Case  - Single Parts.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-46-top-case-33l
+    group: 46
+    title: "Top Case (33L)"
+    diagram: null
+    path: "46 - Frame Fairing & Cases/Top Case (33L).pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-46-topcase-locking-mechanism
+    group: 46
+    title: "Topcase Locking Mechanism"
+    diagram: null
+    path: "46 - Frame Fairing & Cases/Topcase Locking Mechanism.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-46-trim-panel-upper-part
+    group: 46
+    title: "Trim Panel (Upper Part)"
+    diagram: null
+    path: "46 - Frame Fairing & Cases/Trim Panel (Upper Part).pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-46-windshield-adjustment-electr
+    group: 46
+    title: "Windshield Adjustment Electr."
+    diagram: null
+    path: "46 - Frame Fairing & Cases/Windshield Adjustment Electr..pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-46-windshield-mounted-parts
+    group: 46
+    title: "Windshield Mounted Parts"
+    diagram: null
+    path: "46 - Frame Fairing & Cases/Windshield Mounted Parts.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-51-base-painture-two-coat
+    group: 51
+    title: "Base Painture, Two-Coat"
+    diagram: null
+    path: "51 - Vehicle Trim/Base Painture, Two-Coat.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-51-government-authorities-sticker
+    group: 51
+    title: "Government Authorities Sticker"
+    diagram: null
+    path: "51 - Vehicle Trim/Government Authorities Sticker.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-51-ground-filler-and-filler-accessories
+    group: 51
+    title: "Ground Filler & Filler Accessories"
+    diagram: null
+    path: "51 - Vehicle Trim/Ground Filler & Filler Accessories.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-51-ignition-light-switch-and-locks
+    group: 51
+    title: "Ignition – Light Switch and Locks"
+    diagram: null
+    path: "51 - Vehicle Trim/Ignition – Light Switch and Locks.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-51-lock-cylinder-key
+    group: 51
+    title: "Lock Cylinder Key"
+    diagram: null
+    path: "51 - Vehicle Trim/Lock Cylinder Key.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-51-metallic-paintspray
+    group: 51
+    title: "Metallic Paintspray"
+    diagram: null
+    path: "51 - Vehicle Trim/Metallic Paintspray.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-51-metallic-touch-up-pencil
+    group: 51
+    title: "Metallic Touch Up Pencil"
+    diagram: null
+    path: "51 - Vehicle Trim/Metallic Touch Up Pencil.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-51-painted-parts-716-nacht-schwarz-night-black
+    group: 51
+    title: "Painted Parts, 716 Nacht-Schwarz (Night Black)"
+    diagram: null
+    path: "51 - Vehicle Trim/Painted Parts, 716 Nacht-Schwarz (Night Black).pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-51-rep-kit-f-lock-cylinder
+    group: 51
+    title: "Rep. Kit F Lock Cylinder"
+    diagram: null
+    path: "51 - Vehicle Trim/Rep. Kit F Lock Cylinder.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-52-adjustable-bench-seat
+    group: 52
+    title: "Adjustable Bench Seat"
+    diagram: null
+    path: "52 - Seat/Adjustable Bench Seat.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-52-cover-strip-black
+    group: 52
+    title: "Cover Strip Black"
+    diagram: null
+    path: "52 - Seat/Cover Strip Black.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-52-dualseat-lock-mechanism-for-radio
+    group: 52
+    title: "Dualseat Lock Mechanism for Radio"
+    diagram: null
+    path: "52 - Seat/Dualseat Lock Mechanism for Radio.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-52-mounting-parts-for-bench-seat
+    group: 52
+    title: "Mounting Parts for Bench Seat"
+    diagram: null
+    path: "52 - Seat/Mounting Parts for Bench Seat.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-52-tail-trim
+    group: 52
+    title: "Tail Trim"
+    diagram: null
+    path: "52 - Seat/Tail Trim.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-61-auxiliary-switch-special-vehicle
+    group: 61
+    title: "Auxiliary Switch – Special Vehicle"
+    diagram: null
+    path: "61 - Electrical System/Auxiliary Switch – Special Vehicle.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-61-battery-tray
+    group: 61
+    title: "Battery Tray"
+    diagram: null
+    path: "61 - Electrical System/Battery Tray.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-61-battery-maintenance-free
+    group: 61
+    title: "Battery, Maintenance-Free"
+    diagram: null
+    path: "61 - Electrical System/Battery, Maintenance-Free.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-61-bracket-diagnostic-socket-cap
+    group: 61
+    title: "Bracket Diagnostic Socket Cap"
+    diagram: null
+    path: "61 - Electrical System/Bracket Diagnostic Socket Cap.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-61-brake-light-switch-foot-brake
+    group: 61
+    title: "Brake Light Switch Foot Brake"
+    diagram: null
+    path: "61 - Electrical System/Brake Light Switch Foot Brake.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-61-button-for-microphone-and-2-way-radio
+    group: 61
+    title: "Button for Microphone & 2-Way Radio"
+    diagram: null
+    path: "61 - Electrical System/Button for Microphone & 2-Way Radio.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-61-cable-strap-with-bracket-edge-clip
+    group: 61
+    title: "Cable Strap with Bracket – Edge Clip"
+    diagram: null
+    path: "61 - Electrical System/Cable Strap with Bracket – Edge Clip.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-61-cable-tie-with-and-without-bracket
+    group: 61
+    title: "Cable Tie with and without Bracket"
+    diagram: null
+    path: "61 - Electrical System/Cable Tie with and without Bracket.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-61-comb-switch-handlebar-and-eu-contin-light
+    group: 61
+    title: "Comb. Switch Handlebar & EU-Contin. Light"
+    diagram: null
+    path: "61 - Electrical System/Comb. Switch Handlebar & EU-Contin. Light.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-61-combination-switch-official-vehicle
+    group: 61
+    title: "Combination Switch (Official Vehicle)"
+    diagram: null
+    path: "61 - Electrical System/Combination Switch (Official Vehicle).pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-61-combination-switch-at-handlebar
+    group: 61
+    title: "Combination Switch at Handlebar"
+    diagram: null
+    path: "61 - Electrical System/Combination Switch at Handlebar.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-61-connector-housing-side-support-switch
+    group: 61
+    title: "Connector Housing – Side Support Switch"
+    diagram: null
+    path: "61 - Electrical System/Connector Housing – Side Support Switch.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-61-diode-natural-color
+    group: 61
+    title: "Diode – Natural Color"
+    diagram: null
+    path: "61 - Electrical System/Diode – Natural Color.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-61-edge-protection
+    group: 61
+    title: "Edge Protection"
+    diagram: null
+    path: "61 - Electrical System/Edge Protection.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-61-fuel-level-indicator-relay
+    group: 61
+    title: "Fuel Level Indicator Relay"
+    diagram: null
+    path: "61 - Electrical System/Fuel Level Indicator Relay.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-61-fuses
+    group: 61
+    title: "Fuses"
+    diagram: null
+    path: "61 - Electrical System/Fuses.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-61-horn-fanfare
+    group: 61
+    title: "Horn (Fanfare)"
+    diagram: null
+    path: "61 - Electrical System/Horn (Fanfare).pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-61-line-clips-hose-supports
+    group: 61
+    title: "Line Clips – Hose Supports"
+    diagram: null
+    path: "61 - Electrical System/Line Clips – Hose Supports.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-61-main-wrng-harness-and-rear-wrng-harness
+    group: 61
+    title: "Main Wrng. Harness & Rear Wrng. Harness"
+    diagram: null
+    path: "61 - Electrical System/Main Wrng. Harness & Rear Wrng. Harness.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-61-mini-relay-for-opener-blue
+    group: 61
+    title: "Mini-Relay for Opener – Blue"
+    diagram: null
+    path: "61 - Electrical System/Mini-Relay for Opener – Blue.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-61-minirelay-change-over-contact-grey
+    group: 61
+    title: "Minirelay – Change-Over Contact – Grey"
+    diagram: null
+    path: "61 - Electrical System/Minirelay – Change-Over Contact – Grey.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-61-minirelay-make-contact-yellow
+    group: 61
+    title: "Minirelay – Make Contact – Yellow"
+    diagram: null
+    path: "61 - Electrical System/Minirelay – Make Contact – Yellow.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-61-plug-connector-light-grey
+    group: 61
+    title: "Plug Connector Light Grey"
+    diagram: null
+    path: "61 - Electrical System/Plug Connector Light Grey.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-61-plug-in-connection-bracket
+    group: 61
+    title: "Plug-In Connection Bracket"
+    diagram: null
+    path: "61 - Electrical System/Plug-In Connection Bracket.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-61-relay-in-zinc-yellow
+    group: 61
+    title: "Relay in Zinc Yellow"
+    diagram: null
+    path: "61 - Electrical System/Relay in Zinc Yellow.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-61-relay-make-contact-black
+    group: 61
+    title: "Relay – Make Contact – Black"
+    diagram: null
+    path: "61 - Electrical System/Relay – Make Contact – Black.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-61-repair-plug-2484
+    group: 61
+    title: "Repair Plug (2484)"
+    diagram: null
+    path: "61 - Electrical System/Repair Plug (2484).pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-61-repair-plug-2485
+    group: 61
+    title: "Repair Plug (2485)"
+    diagram: null
+    path: "61 - Electrical System/Repair Plug (2485).pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-61-retaining-clips-and-line-clips
+    group: 61
+    title: "Retaining Clips & Line Clips"
+    diagram: null
+    path: "61 - Electrical System/Retaining Clips & Line Clips.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-61-sep-components-wiring-harness-repair
+    group: 61
+    title: "Sep. Components Wiring Harness Repair"
+    diagram: null
+    path: "61 - Electrical System/Sep. Components Wiring Harness Repair.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-61-sockets
+    group: 61
+    title: "Sockets"
+    diagram: null
+    path: "61 - Electrical System/Sockets.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-61-special-tool-for-wiring-harness-repair
+    group: 61
+    title: "Special Tool for Wiring Harness Repair"
+    diagram: null
+    path: "61 - Electrical System/Special Tool for Wiring Harness Repair.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-61-switch
+    group: 61
+    title: "Switch"
+    diagram: null
+    path: "61 - Electrical System/Switch.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-61-switch-housing-additional-switch
+    group: 61
+    title: "Switch Housing Additional Switch"
+    diagram: null
+    path: "61 - Electrical System/Switch Housing Additional Switch.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-61-switch-kickstand
+    group: 61
+    title: "Switch – Kickstand"
+    diagram: null
+    path: "61 - Electrical System/Switch – Kickstand.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-61-switch-authorities
+    group: 61
+    title: "Switch, Authorities"
+    diagram: null
+    path: "61 - Electrical System/Switch, Authorities.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-61-turn-signal-relay
+    group: 61
+    title: "Turn Signal Relay"
+    diagram: null
+    path: "61 - Electrical System/Turn Signal Relay.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-61-wiring-box-fuse-box-and-mounting-parts
+    group: 61
+    title: "Wiring Box Fuse Box & Mounting Parts"
+    diagram: null
+    path: "61 - Electrical System/Wiring Box Fuse Box & Mounting Parts.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-61-wiring-harness-officials-utility
+    group: 61
+    title: "Wiring Harness – Officials Utility"
+    diagram: null
+    path: "61 - Electrical System/Wiring Harness – Officials Utility.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-62-dashboard-mounting-parts
+    group: 62
+    title: "Dashboard Mounting Parts"
+    diagram: null
+    path: "62 - Instrument Dash/Dashboard Mounting Parts.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-62-driver-s-information-display
+    group: 62
+    title: "Driver’s Information Display"
+    diagram: null
+    path: "62 - Instrument Dash/Driver’s Information Display.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-62-speedometer-and-rev-counter
+    group: 62
+    title: "Speedometer & Rev. Counter"
+    diagram: null
+    path: "62 - Instrument Dash/Speedometer & Rev. Counter.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-62-telltale-unit
+    group: 62
+    title: "Telltale Unit"
+    diagram: null
+    path: "62 - Instrument Dash/Telltale Unit.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-62-trip-distance-display-reset
+    group: 62
+    title: "Trip-Distance Display Reset"
+    diagram: null
+    path: "62 - Instrument Dash/Trip-Distance Display Reset.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-63-flash-signalling-light-and-control-unit
+    group: 63
+    title: "Flash Signalling Light & Control Unit"
+    diagram: null
+    path: "63 - Lighting/Flash Signalling Light & Control Unit.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-63-front-turn-indicator
+    group: 63
+    title: "Front Turn Indicator"
+    diagram: null
+    path: "63 - Lighting/Front Turn Indicator.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-63-headlight
+    group: 63
+    title: "Headlight"
+    diagram: null
+    path: "63 - Lighting/Headlight.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-63-headlight-adjustment
+    group: 63
+    title: "Headlight Adjustment"
+    diagram: null
+    path: "63 - Lighting/Headlight Adjustment.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-63-led-linear-strobe-lamp-blue
+    group: 63
+    title: "LED Linear Strobe Lamp, Blue"
+    diagram: null
+    path: "63 - Lighting/LED Linear Strobe Lamp, Blue.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-63-marker-light-bracket
+    group: 63
+    title: "Marker Light Bracket"
+    diagram: null
+    path: "63 - Lighting/Marker Light Bracket.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-63-priority-vehicle-light
+    group: 63
+    title: "Priority Vehicle Light"
+    diagram: null
+    path: "63 - Lighting/Priority Vehicle Light.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-63-priority-warning-light
+    group: 63
+    title: "Priority Warning Light"
+    diagram: null
+    path: "63 - Lighting/Priority Warning Light.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-63-rear-fog-light
+    group: 63
+    title: "Rear Fog Light"
+    diagram: null
+    path: "63 - Lighting/Rear Fog Light.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-63-reflectors
+    group: 63
+    title: "Reflectors"
+    diagram: null
+    path: "63 - Lighting/Reflectors.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-63-signalling-light
+    group: 63
+    title: "Signalling Light"
+    diagram: null
+    path: "63 - Lighting/Signalling Light.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-63-tail-light-mounting-parts
+    group: 63
+    title: "Tail Light Mounting Parts"
+    diagram: null
+    path: "63 - Lighting/Tail Light Mounting Parts.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-65-acoustic-signal-system-siren
+    group: 65
+    title: "Acoustic Signal System (Siren)"
+    diagram: null
+    path: "65 - GPS Alarms & Radio/Acoustic Signal System (Siren).pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-65-alarm-systems
+    group: 65
+    title: "Alarm Systems"
+    diagram: null
+    path: "65 - GPS Alarms & Radio/Alarm Systems.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-65-alarm-systems-5-1
+    group: 65
+    title: "Alarm Systems 5.1"
+    diagram: null
+    path: "65 - GPS Alarms & Radio/Alarm Systems 5.1.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-65-antenna-ground-plane-75-795-mhz
+    group: 65
+    title: "Antenna Ground Plane 75.795 MHz"
+    diagram: null
+    path: "65 - GPS Alarms & Radio/Antenna Ground Plane 75.795 MHz.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-65-bracket-for-control-panel-and-microphone
+    group: 65
+    title: "Bracket for Control Panel & Microphone"
+    diagram: null
+    path: "65 - GPS Alarms & Radio/Bracket for Control Panel & Microphone.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-65-funkantenne-bundesinnenministerium
+    group: 65
+    title: "Funkantenne Bundesinnenministerium"
+    diagram: null
+    path: "65 - GPS Alarms & Radio/Funkantenne Bundesinnenministerium.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-65-helmet-connection-socket
+    group: 65
+    title: "Helmet Connection Socket"
+    diagram: null
+    path: "65 - GPS Alarms & Radio/Helmet Connection Socket.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-65-loudspeaker-antenna
+    group: 65
+    title: "Loudspeaker Antenna"
+    diagram: null
+    path: "65 - GPS Alarms & Radio/Loudspeaker Antenna.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-65-microphones-for-official-vehicles
+    group: 65
+    title: "Microphones for Official Vehicles"
+    diagram: null
+    path: "65 - GPS Alarms & Radio/Microphones for Official Vehicles.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-65-mounting-parts-of-radio-telephone-box
+    group: 65
+    title: "Mounting Parts of Radio Telephone Box"
+    diagram: null
+    path: "65 - GPS Alarms & Radio/Mounting Parts of Radio Telephone Box.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-65-radio
+    group: 65
+    title: "Radio"
+    diagram: null
+    path: "65 - GPS Alarms & Radio/Radio.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-65-radio-antenna
+    group: 65
+    title: "Radio Antenna"
+    diagram: null
+    path: "65 - GPS Alarms & Radio/Radio Antenna.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-65-radio-telephone-box
+    group: 65
+    title: "Radio Telephone Box"
+    diagram: null
+    path: "65 - GPS Alarms & Radio/Radio Telephone Box.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-65-single-parts-antenna-ground-plane
+    group: 65
+    title: "Single Parts – Antenna Ground Plane"
+    diagram: null
+    path: "65 - GPS Alarms & Radio/Single Parts – Antenna Ground Plane.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-65-stop-signal
+    group: 65
+    title: "Stop Signal"
+    diagram: null
+    path: "65 - GPS Alarms & Radio/Stop Signal.pdf"
+    aliases: []
+    tags: []
+  - id: R22-0499-65-theft-alarm-basic-unit
+    group: 65
+    title: "Theft Alarm (Basic Unit)"
+    diagram: null
+    path: "65 - GPS Alarms & Radio/Theft Alarm (Basic Unit).pdf"
+    aliases: []
+    tags: []

@@ -1,0 +1,33 @@
+# --- Core / DB interface
+duckdb>=1.1.0
+sqlglot>=25.0.0
+pandas>=2.2.0
+numpy>=1.26.0
+
+# --- Embeddings (semantic search)
+sentence-transformers>=2.6.0
+
+# --- Ingestion: parsing / OCR / tables / web
+unstructured>=0.14.0
+layoutparser[ocr]>=0.3.4
+paddleocr>=2.7.0
+pytesseract>=0.3.10
+pillow>=10.3.0
+camelot-py[cv]>=0.11.0
+pdfplumber>=0.11.0
+trafilatura>=1.7.0
+beautifulsoup4>=4.12.0
+requests>=2.32.0
+opencv-python>=4.10.0.84
+
+# --- CLI UX / glue
+click>=8.1.7
+rich>=13.7.1
+tqdm>=4.66.4
+python-dotenv>=1.0.1
+PyYAML>=6.0.2
+
+# --- (Optional, keep installed for dev but you can comment if unwanted)
+# haystack-ai>=2.0.0
+# duckdb-engine>=0.13.0
+# sqlite-vss>=0.1.2

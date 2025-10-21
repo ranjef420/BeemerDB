@@ -1,0 +1,15 @@
+```json
+{
+  "version": "v1",
+  "date": "2025-10-19",
+  "author": "parts-assist-team",
+  "templates": [
+    {"name": "parts_lookup", "hash": "sha256:000000..."},
+    {"name": "maintenance_advice", "hash": "sha256:000000..."},
+    {"name": "troubleshoot_diagnose", "hash": "sha256:000000..."},
+    {"name": "clarify_questions", "hash": "sha256:000000..."},
+    {"name": "tool_invoke", "hash": "sha256:000000..."}
+  ],
+  "notes": "Initial prompt template version. Keep immutable; create v2 for any behavioral changes."
+}
+```

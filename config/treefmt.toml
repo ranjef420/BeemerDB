@@ -1,0 +1,19 @@
+# treefmt.toml
+[formatter.black]
+command = "black"
+includes = ["*.py"]
+
+[formatter.ruff]
+command = "ruff"
+options = ["--fix"]
+includes = ["*.py"]
+
+[formatter.shfmt]
+command = "shfmt"
+options = ["-w", "-i", "2", "-bn", "-ci"]
+includes = ["*.sh", "bin/*", "tools/cli/*", "*.zsh"]
+
+# Optional: sql-formatter if you want (via npm), otherwise omit
+# [formatter.sqlfmt]
+# command = "sql-formatter"
+# includes = ["*.sql"]

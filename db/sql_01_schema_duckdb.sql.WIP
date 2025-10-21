@@ -1,0 +1,186 @@
+-- BeemerDB schema (DuckDB primary)
+PRAGMA threads=auto;
+
+-- Authoritative sources
+CREATE TABLE IF NOT EXISTS manuals (
+  id            BIGINT PRIMARY KEY,
+  filename      VARCHAR NOT NULL,
+  manual_type   VARCHAR NOT NULL,   -- repair, electrical, maintenance, riders, specs
+  file_path     VARCHAR NOT NULL,
+  file_size_bytes BIGINT,
+  page_count    INTEGER,
+  sha256_hash   VARCHAR UNIQUE,
+  ingested_at   TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  metadata      JSON
+);
+
+CREATE SEQUENCE IF NOT EXISTS seq_manual_pages START 1;
+CREATE TABLE IF NOT EXISTS manual_pages (
+  id              BIGINT PRIMARY KEY DEFAULT nextval('seq_manual_pages'),
+  manual_id       BIGINT NOT NULL REFERENCES manuals(id),
+  page_number     INTEGER NOT NULL,
+  section_title   VARCHAR,
+  ocr_text        TEXT,
+  embedding       FLOAT[384],
+  image_path      VARCHAR,
+  confidence_score DOUBLE,
+  metadata        JSON,
+  UNIQUE(manual_id, page_number)
+);
+CREATE INDEX IF NOT EXISTS idx_manual_pages_manual ON manual_pages(manual_id);
+CREATE INDEX IF NOT EXISTS idx_manual_pages_section ON manual_pages(section_title);
+
+-- BMW parts hierarchy
+CREATE TABLE IF NOT EXISTS parts_groups (
+  group_number INTEGER PRIMARY KEY,
+  group_name   VARCHAR NOT NULL,
+  description  TEXT,
+  diagram_count INTEGER DEFAULT 0,
+  metadata     JSON
+);
+
+INSERT OR IGNORE INTO parts_groups (group_number, group_name) VALUES
+  (11,'Engine'),(12,'Engine Electrics'),(13,'Fuel Preparation'),
+  (16,'Fuel Supply'),(17,'Cooling'),(18,'Exhaust System'),
+  (21,'Clutch'),(23,'Transmission'),(31,'Front Suspension'),
+  (32,'Steering'),(33,'Rear Axle & Suspension'),(34,'Brakes'),
+  (35,'Pedals'),(36,'Wheels'),(46,'Frame Fairing & Cases'),
+  (51,'Vehicle Trim'),(52,'Seat'),(61,'Electrical System'),
+  (62,'Instrument Dash'),(63,'Lighting'),(65,'GPS Alarms & Radio');
+
+CREATE SEQUENCE IF NOT EXISTS seq_parts_diagrams START 1;
+CREATE TABLE IF NOT EXISTS parts_diagrams (
+  id            BIGINT PRIMARY KEY DEFAULT nextval('seq_parts_diagrams'),
+  group_number  INTEGER NOT NULL REFERENCES parts_groups(group_number),
+  filename      VARCHAR NOT NULL,
+  title         VARCHAR,
+  file_path     VARCHAR NOT NULL,
+  file_size_bytes BIGINT,
+  page_count    INTEGER,
+  ocr_text      TEXT,
+  embedding     FLOAT[384],
+  part_numbers  JSON,   -- array of strings
+  sha256_hash   VARCHAR UNIQUE,
+  ingested_at   TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  metadata      JSON
+);
+CREATE INDEX IF NOT EXISTS idx_diagrams_group ON parts_diagrams(group_number);
+CREATE INDEX IF NOT EXISTS idx_diagrams_title ON parts_diagrams(title);
+
+CREATE SEQUENCE IF NOT EXISTS seq_parts_catalog START 1;
+CREATE TABLE IF NOT EXISTS parts_catalog (
+  id            BIGINT PRIMARY KEY DEFAULT nextval('seq_parts_catalog'),
+  part_number   VARCHAR UNIQUE NOT NULL,
+  description   TEXT NOT NULL,
+  group_number  INTEGER REFERENCES parts_groups(group_number),
+  diagram_id    BIGINT REFERENCES parts_diagrams(id),
+  superseded_by VARCHAR,
+  price_usd     DECIMAL(10,2),
+  availability  VARCHAR,
+  notes         TEXT,
+  metadata      JSON,
+  embedding     FLOAT[384]
+);
+CREATE INDEX IF NOT EXISTS idx_parts_number ON parts_catalog(part_number);
+CREATE INDEX IF NOT EXISTS idx_parts_group ON parts_catalog(group_number);
+CREATE INDEX IF NOT EXISTS idx_parts_superseded ON parts_catalog(superseded_by);
+
+-- Specs / torque / procedures / symptoms
+CREATE SEQUENCE IF NOT EXISTS seq_vehicle_specs START 1;
+CREATE TABLE IF NOT EXISTS vehicle_specs (
+  id            BIGINT PRIMARY KEY DEFAULT nextval('seq_vehicle_specs'),
+  spec_category VARCHAR NOT NULL,
+  spec_name     VARCHAR NOT NULL,
+  spec_value    VARCHAR NOT NULL,
+  unit          VARCHAR,
+  notes         TEXT,
+  source        VARCHAR,
+  metadata      JSON,
+  UNIQUE(spec_category, spec_name)
+);
+CREATE INDEX IF NOT EXISTS idx_specs_category ON vehicle_specs(spec_category);
+
+CREATE SEQUENCE IF NOT EXISTS seq_torque START 1;
+CREATE TABLE IF NOT EXISTS torque_specifications (
+  id             BIGINT PRIMARY KEY DEFAULT nextval('seq_torque'),
+  component      VARCHAR NOT NULL,
+  location       VARCHAR,
+  torque_value   DOUBLE NOT NULL,
+  unit           VARCHAR DEFAULT 'Nm',
+  thread_size    VARCHAR,
+  part_number    VARCHAR REFERENCES parts_catalog(part_number),
+  source_page_id BIGINT REFERENCES manual_pages(id),
+  notes          TEXT,
+  metadata       JSON
+);
+
+CREATE SEQUENCE IF NOT EXISTS seq_procedures START 1;
+CREATE TABLE IF NOT EXISTS maintenance_procedures (
+  id                    BIGINT PRIMARY KEY DEFAULT nextval('seq_procedures'),
+  procedure_name        VARCHAR NOT NULL,
+  category              VARCHAR,
+  group_number          INTEGER REFERENCES parts_groups(group_number),
+  description           TEXT,
+  steps                 JSON,
+  required_parts        JSON,
+  required_tools        JSON,
+  estimated_time_minutes INTEGER,
+  difficulty_rating     INTEGER,
+  source_manual_id      BIGINT REFERENCES manuals(id),
+  source_page_numbers   JSON,
+  embedding             FLOAT[384],
+  metadata              JSON
+);
+CREATE INDEX IF NOT EXISTS idx_procedures_category ON maintenance_procedures(category);
+CREATE INDEX IF NOT EXISTS idx_procedures_group ON maintenance_procedures(group_number);
+
+CREATE SEQUENCE IF NOT EXISTS seq_symptoms START 1;
+CREATE TABLE IF NOT EXISTS symptoms (
+  id                  BIGINT PRIMARY KEY DEFAULT nextval('seq_symptoms'),
+  symptom_description TEXT NOT NULL,
+  severity            VARCHAR,
+  affected_systems    JSON,
+  common_causes       JSON,
+  diagnostic_steps    JSON,
+  related_procedures  JSON,
+  related_parts       JSON,
+  embedding           FLOAT[384],
+  metadata            JSON
+);
+
+-- Ingestion tracking
+CREATE SEQUENCE IF NOT EXISTS seq_ingest START 1;
+CREATE TABLE IF NOT EXISTS ingestion_log (
+  id                     BIGINT PRIMARY KEY DEFAULT nextval('seq_ingest'),
+  source_file            VARCHAR NOT NULL,
+  file_type              VARCHAR,    -- pdf, yaml, txt, html
+  action                 VARCHAR,    -- ocr, parse, embed, index
+  status                 VARCHAR,    -- success, failed, partial
+  records_processed      INTEGER,
+  error_message          TEXT,
+  processing_time_seconds DOUBLE,
+  started_at             TIMESTAMP,
+  completed_at           TIMESTAMP,
+  metadata               JSON
+);
+
+CREATE SEQUENCE IF NOT EXISTS seq_hashes START 1;
+CREATE TABLE IF NOT EXISTS file_hashes (
+  id              BIGINT PRIMARY KEY DEFAULT nextval('seq_hashes'),
+  file_path       VARCHAR UNIQUE NOT NULL,
+  sha256_hash     VARCHAR NOT NULL,
+  file_size_bytes BIGINT,
+  last_modified   TIMESTAMP,
+  last_processed  TIMESTAMP,
+  processing_status VARCHAR,         -- pending, processing, completed, failed
+  UNIQUE(file_path, sha256_hash)
+);
+CREATE INDEX IF NOT EXISTS idx_file_hashes_path ON file_hashes(file_path);
+CREATE INDEX IF NOT EXISTS idx_file_hashes_status ON file_hashes(processing_status);
+
+-- FTS indexes (DuckDB fts)
+PRAGMA create_fts_index('manual_pages', 'id', 'ocr_text, section_title');
+PRAGMA create_fts_index('parts_diagrams', 'id', 'ocr_text, title');
+PRAGMA create_fts_index('parts_catalog', 'id', 'part_number, description, notes');
+PRAGMA create_fts_index('maintenance_procedures', 'id', 'procedure_name, description');
+PRAGMA create_fts_index('symptoms', 'id', 'symptom_description');

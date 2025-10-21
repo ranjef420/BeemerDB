@@ -1,0 +1,43 @@
+-- Add editions & docsets (covers 2001/2004/2006 differences)
+ALTER TABLE manuals
+  ADD COLUMN edition_date DATE,
+  ADD COLUMN print_code VARCHAR,   -- e.g., "UX-VS-2", footer tokens
+  ADD COLUMN oem_source VARCHAR;   -- 'repair','rider','maintenance','schematic'
+
+-- Guard 00 group & future sub-keys
+CREATE TABLE parts_groups (
+  group_number TEXT PRIMARY KEY CHECK (group_number ~ '^[0-9]{2}([.][0-9]{2})?$'),
+  group_name VARCHAR NOT NULL,
+  description TEXT,
+  diagram_count INTEGER DEFAULT 0,
+  metadata JSON
+);
+
+-- Many-to-many link for diagram callouts
+CREATE TABLE diagram_parts (
+  id INTEGER PRIMARY KEY,
+  diagram_id INTEGER NOT NULL REFERENCES parts_diagrams(id) ON DELETE CASCADE,
+  part_number VARCHAR NOT NULL,  -- REFERENCES parts_catalog(part_number) when catalog exists
+  callout_label VARCHAR,          -- e.g., item # on drawing
+  quantity REAL,
+  notes TEXT,
+  UNIQUE(diagram_id, part_number, callout_label)
+);
+
+-- Page sub-chunks for better retrieval/granular provenance
+CREATE TABLE manual_chunks (
+  id INTEGER PRIMARY KEY,
+  manual_id INTEGER NOT NULL REFERENCES manuals(id) ON DELETE CASCADE,
+  page_number INTEGER NOT NULL,
+  chunk_index INTEGER NOT NULL,
+  ocr_text TEXT,
+  embedding /* FLOAT[] or BLOB per VSS ext */,
+  bbox JSON,                      -- {x,y,w,h} if captured
+  metadata JSON,
+  UNIQUE(manual_id, page_number, chunk_index)
+);
+
+-- Option flags for ABS etc.
+ALTER TABLE maintenance_procedures
+  ADD COLUMN option_integral_abs BOOLEAN,
+  ADD COLUMN market_code VARCHAR;   -- possible to separate US/EU variants later

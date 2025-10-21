@@ -1,0 +1,21 @@
+-- allow community extensions and keep them in one place
+SET allow_unsigned_extensions=true;
+SET extension_directory='~/.duckdb/extensions';
+
+INSTALL fts;
+INSTALL vss;
+INSTALL sqlite;
+INSTALL httpfs;
+INSTALL json;
+INSTALL excel;
+INSTALL icu;
+INSTALL cache_httpfs FROM community;
+
+LOAD fts;
+LOAD vss;
+LOAD sqlite;
+LOAD httpfs;
+LOAD json;
+LOAD excel;
+LOAD icu;
+LOAD cache_httpfs;

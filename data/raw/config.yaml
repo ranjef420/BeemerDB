@@ -1,0 +1,68 @@
+"""Configuration management for OilheadPro ingestion pipeline."""
+
+import os
+from pathlib import Path
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
+
+class Config:
+    """Central configuration for all ingestion scripts."""
+    
+    # Paths
+    PROJECT_ROOT = Path(os.getenv('PROJECT_ROOT', Path.home() / 'OilheadPro'))
+    MANUALS_DIR = Path(os.getenv('MANUALS_DIR', PROJECT_ROOT / 'manuals'))
+    PARTS_DIR = Path(os.getenv('PARTS_DIR', PROJECT_ROOT / 'parts'))
+    DB_PATH = Path(os.getenv('DB_PATH', PROJECT_ROOT / 'db' / 'oilhead.duckdb'))
+    OCR_OUTPUT_DIR = Path(os.getenv('OCR_OUTPUT_DIR', PROJECT_ROOT / 'data' / 'ocr'))
+    TEMP_DIR = Path(os.getenv('TEMP_DIR', PROJECT_ROOT / 'data' / 'temp'))
+    LOG_FILE = Path(os.getenv('LOG_FILE', PROJECT_ROOT / 'logs' / 'ingestion.log'))
+    
+    # OCR Settings
+    TESSERACT_LANG = os.getenv('TESSERACT_LANG', 'eng')
+    OCR_DPI = int(os.getenv('OCR_DPI', '300'))
+    OCR_PARALLEL_JOBS = int(os.getenv('OCR_PARALLEL_JOBS', '4'))
+    
+    # Embedding Settings
+    EMBEDDING_MODEL = os.getenv('EMBEDDING_MODEL', 'all-MiniLM-L6-v2')
+    EMBEDDING_BATCH_SIZE = int(os.getenv('EMBEDDING_BATCH_SIZE', '32'))
+    EMBEDDING_DEVICE = os.getenv('EMBEDDING_DEVICE', 'cpu')
+    
+    # Processing
+    HASH_ALGORITHM = os.getenv('HASH_ALGORITHM', 'sha256')
+    SKIP_UNCHANGED_FILES = os.getenv('SKIP_UNCHANGED_FILES', 'true').lower() == 'true'
+    
+    @classmethod
+    def ensure_directories(cls):
+        """Create necessary directories if they don't exist."""
+        dirs = [
+            cls.PROJECT_ROOT,
+            cls.DB_PATH.parent,
+            cls.OCR_OUTPUT_DIR,
+            cls.OCR_OUTPUT_DIR / 'manuals',
+            cls.OCR_OUTPUT_DIR / 'parts',
+            cls.TEMP_DIR,
+            cls.LOG_FILE.parent,
+        ]
+        for directory in dirs:
+            directory.mkdir(parents=True, exist_ok=True)
+    
+    @classmethod
+    def validate(cls):
+        """Validate configuration."""
+        errors = []
+        
+        if not cls.MANUALS_DIR.exists():
+            errors.append(f"MANUALS_DIR does not exist: {cls.MANUALS_DIR}")
+        
+        if not cls.PARTS_DIR.exists():
+            errors.append(f"PARTS_DIR does not exist: {cls.PARTS_DIR}")
+        
+        if errors:
+            raise ValueError("Configuration errors:\n" + "\n".join(errors))
+        
+        return True
+
+# Validate and create directories on import
+Config.ensure_directories()

@@ -1,0 +1,31 @@
+tap "xo/xo"  # for usql
+
+brew "duckdb"
+brew "sqlite"
+brew "just"
+
+# OCR & imaging toolchain
+brew "ocrmypdf"
+brew "unpaper"
+brew "poppler"
+brew "ghostscript"
+brew "tesseract"
+brew "imagemagick"
+
+# CLI / DB clients
+brew "usql"
+brew "pspg"
+brew "litecli"
+
+# Dev experience (you already have many of these; harmless if re-run)
+brew "ripgrep"
+brew "fd"
+brew "fzf"
+brew "bat"
+brew "eza"
+brew "starship"
+brew "shellcheck"
+brew "shfmt"       # used by treefmt
+
+# Rust toolchain only if you want to `cargo install treefmt`
+brew "rust"

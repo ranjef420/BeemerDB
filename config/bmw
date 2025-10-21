@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+set -euo pipefail
+: "${PART_DB:=${PART_DB:-$HOME/Repos/BeemerDB/db/OEM.duckdb}}"
+
+case "${1-}" in
+  query)
+    shift
+    duckdb "$PART_DB" -c "${*:-SELECT 1;}"
+    ;;
+  fts)
+    shift
+    duckdb "$PART_DB" -c ".read sql/03_build_fts_duckdb.sql"
+    ;;
+  schema)
+    duckdb "$PART_DB" -c ".read sql/01_schema_duckdb.sql"
+    ;;
+  *)
+    cat <<'USAGE'
+bmw query "SELECT * FROM parts_catalog LIMIT 5;"
+bmw fts          # rebuild FTS indexes
+bmw schema       # (re)apply schema
+USAGE
+    ;;
+esac

@@ -1,0 +1,90 @@
+Hilde_R1150RT_Build_Profile.txt
+───────────────────────────────────────────────────────────
+CANONICAL VEHICLE IDENTITY & SPECS — HILDE (R1150RT, TYPE 0499)
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+BMW MOTORRAD R1150RT (2004) | VIN: WB10499A14ZE93239
+───────────────────────────────────────────────────────────
+Type Code: 0499 | Series: R22 (Authority / Police Model)
+Production Date: 2003-09-25 | Plant: Munich, Germany | Market: USA
+───────────────────────────────────────────────────────────
+
+GENERAL SPECIFICATIONS
+──────────────────────
+Manufacturer: BMW AG Motorcycles
+Model: R 1150 RT
+Model Year: 2004
+Vehicle Type: Motorcycle – Standard / Touring
+Engine Displacement: 1130 cc (1.13 L / 68.96 cu in)
+Engine Type: 2-Cylinder Boxer, 4-Stroke, Air-Cooled
+Valve Train: SOHC
+Horsepower: 95 hp / 70 kW
+Fuel System: Fuel Injection (Gasoline)
+Transmission: Manual, 6-Speed
+Drive Type: Rear-Wheel Drive
+Cooling System: Air
+Paint / Color: Night-Black (*nacht-schwarz, Zierl*)
+Production Plant: Munich, Germany
+Region Designation: USA
+Gross Vehicle Weight Rating: ≤ 3,000 lb (≤ 1,360 kg)
+
+──────────────────────
+EQUIPMENT AND FEATURES
+──────────────────────
+X0519 Heated Handlebar Grips
+X0712 Radio (Replaced with Nilight 4-in-1 Panel Panel (USB-C (PD) / USB-A (QC 3.0) Outlet), Voltmeter, Toggle Switch))
+X0716 Paint Option – *nacht-schwarz, Zierl*
+
+──────────────────────
+ACTIVE & PASSIVE SAFETY
+──────────────────────
+ABS (Anti-lock Braking System): Equipped
+Traction Control: Equipped
+Other Electronic Driver-Assist Systems: None
+
+──────────────────────
+MECHANICAL SYSTEMS
+──────────────────────
+Brake System: Hydraulic ABS
+Drivetrain: Rear-Wheel Drive
+Transmission: Manual, 6-Speed
+Battery: 12 V Lead-Acid (Standard)
+Suspension: Telelever Front / Paralever Rear
+Frame / Chassis: Tubular Steel, Load-Bearing Engine
+
+──────────────────────
+DIMENSIONS & CAPACITY
+──────────────────────
+Wheelbase: 1491 mm (58.7 in)
+Fuel Capacity: 25.2 L (6.65 US gal)
+Seat Height: 805–825 mm (31.7–32.5 in)
+Curb Weight (Approx.): 279 kg (615 lb)
+
+──────────────────────
+RECALLS
+──────────────────────
+Campaign #   Date  Component
+08V384000   2008-05-08 Air Bags – Frontal
+12V126000   2012-03-26 Electrical System – Battery Cables
+07V066000   2007-02-23 Engine / Cooling
+12E029000   2012-08-14 Engine Cooling System Fan
+04V303000   2004-06-25 Fuel System – Gasoline
+05V082000   2005-03-10 Fuel Delivery – Fuel Pump
+04V028000   2004-01-21 Fuel Lines / Hoses / Pipes
+
+──────────────────────
+REPORTED ISSUES (VIN Pattern WB10499A*)
+──────────────────────
+Issue ID  Date   Component
+366453  2002-05-13 Service Brakes – Hydraulic (ABS)
+379427  2002-08-16 Service Brakes – Hydraulic (ABS)
+379501  2002-08-24 Service Brakes – Air Antilock
+379530  2025-10-15 Service Brakes – Hydraulic (ABS)
+386289  2002-08-01 Service Brakes – Hydraulic
+415897  2003-05-06 Engine / Cooling – Gasoline
+752418  2009-09-23 Power Train
+905175  2009-08-29 Power Train
+1182294 2015-05-01 Service Brakes
+
+───────────────────────────────────────────────────────────
+END OF SPECIFICATION – REFERENCE RECORD R22 / 0499 (Police Model)
+───────────────────────────────────────────────────────────

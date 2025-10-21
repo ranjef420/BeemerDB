@@ -1,0 +1,2004 @@
+version: 0.3.0
+last_updated: 2025-10-15
+model: "R1150RT Authority Map"
+notes: "Machine-readable navigation layer linking OEM manual groups to curated external resources, tools, specs, and tags."
+
+authority_weights:
+  OEM: 10
+  Expert: 7
+  Community: 4
+  Supplier: 4
+  Theory: 2
+
+source_types:
+  - OEM
+  - Expert
+  - Community
+  - Supplier
+  - Theory
+
+schema:
+  group:
+    group_id: "string (BMW group number, e.g., '34')"
+    name: "string (human title)"
+    tags: ["array of keywords"]
+    oem:
+      primary_pdf: "filename of OEM manual"
+      page_hint: "string or null (page range or anchor hints)"
+      sibling_docs: ["additional OEM PDFs (wiring, rider's manual, maintenance)"]
+    tasks: ["slug list of common tasks handled by this group"]
+    symptoms: ["slug list of common user-facing problems mapped to this group"]
+    tools:
+      required: ["list of special tools (BMW tool numbers where relevant)"]
+      optional: ["list of modern equivalents (e.g., GS-911)"]
+    specs:
+      items:
+        - key: "short key (e.g., 'brake_fluid')"
+          value: "value or null if not set"
+          unit: "string or null"
+          source: "OEM | Expert | Community"
+          note: "optional clarification"
+    resources:
+      - title: "string"
+        url: "string"
+        source_type: "OEM | Expert | Community | Supplier | Theory"
+        authority_rank: "int (higher = stronger)"
+        role: "Procedure supplement | Diagnosis | Parts | Theory | Forum case study"
+        tags: ["array"]
+        notes: "short guidance on when/why to use"
+    routing:
+      # NLP assist: keywords and phrases that should route to this group,
+      # with a lightweight score bump for disambiguation
+      keyword_bias:
+        - phrase: "string"
+          weight: 1.0
+      fallback_groups: ["group_id(s) to check next if confidence low"]
+
+groups:
+
+  - group_id: "00"
+    name: "General Data, Maintenance, Fluids, and Tightening Torques"
+    tags: ["maintenance", "service_schedule", "fluids", "torque", "checklist", "intervals"]
+    oem:
+      primary_pdf: "R1150RT Repair Manual.pdf"
+      page_hint: "Group 00 (maintenance schedules, fluids list, torque tables, pre-delivery checks)"
+      sibling_docs:
+        - "R1150RT Maintenance Instructions.pdf"
+        - "R1150RT Riders Manual.pdf"
+        - "R1150RT Electrical Schematic.pdf"
+    tasks:
+      - pre_delivery_check
+      - annual_service
+      - 10k_km_service
+      - 20k_km_inspection
+      - brake_fluid_service_wheel_circuits
+      - brake_fluid_service_control_circuits
+      - clutch_fluid_service
+      - valve_clearance_check_schedule
+      - poly_v_belt_inspect_or_replace
+      - throttle_body_sync
+      - road_safety_check
+    symptoms:
+      - overdue_service_indicator_or_log
+      - unknown_fluid_or_torque_spec
+      - irregular_service_history
+      - mixed_or_wrong_fluid_used
+    tools:
+      required:
+        - "Torque wrenches covering 5–200 Nm range"
+        - "Calibrated oil measuring jug (≥4 L)"
+      optional:
+        - "Service stand"
+        - "Brake/Clutch fluid syringes and catch bottles"
+    specs:
+      items:
+        - key: "engine_oil_capacity_incl_filter"
+          value: "3.75"
+          unit: "L"
+          source: "OEM"
+          note: "Warm engine; verify on sight glass after run/settle"
+        - key: "final_drive_oil_capacity"
+          value: "0.25"
+          unit: "L"
+          source: "OEM"
+          note: "SAE 90 GL-5; follow fill protocol"
+        - key: "idle_speed"
+          value: "1100 ± 50"
+          unit: "rpm"
+          source: "OEM"
+          note: "Set after throttle-body balance"
+        - key: "valve_clearance_intake"
+          value: "0.15"
+          unit: "mm"
+          source: "OEM"
+          note: "Cold engine"
+        - key: "valve_clearance_exhaust"
+          value: "0.30"
+          unit: "mm"
+          source: "OEM"
+          note: "Cold engine"
+        - key: "brake_fluid_interval"
+          value: "wheel circuits: annual; control circuits: biennial"
+          unit: null
+          source: "OEM"
+          note: "iABS service policy; see Group 34"
+        - key: "clutch_fluid_interval"
+          value: "biennial"
+          unit: null
+          source: "OEM"
+          note: "Mineral oil system on many Oilheads; verify variant"
+    resources:
+      - title: "BMW Service Schedules (A&S Cycles)"
+        url: "http://www.ascycles.com/bmw_motorcycle_service_and_maintenance_schedules.aspx"
+        source_type: "Expert"
+        authority_rank: 6
+        role: "Schedule reference"
+        tags: ["service_schedule", "intervals"]
+        notes: "Quick cross-check for factory intervals and task lists."
+      - title: "RealOEM – Platform Parts Index (reference for fluids-related plugs/seals)"
+        url: "https://www.realoem.com/bmw/enUS/partgrp?id=0499-USA-09-2003-R22-BMW-R_1150_RT_00_0419%2C0499_"
+        source_type: "OEM"
+        authority_rank: 8
+        role: "Parts"
+        tags: ["seals", "washers", "o_rings"]
+        notes: "Look up crush washers, drain/fill plugs, and gaskets tied to fluid services."
+      - title: "Engine Break-In Secrets (MototuneUSA) – theory"
+        url: "http://www.mototuneusa.com/break_in_secrets.htm"
+        source_type: "Theory"
+        authority_rank: 3
+        role: "Theory"
+        tags: ["break_in", "rings", "seating"]
+        notes: "Background perspective; not OEM doctrine."
+    routing:
+      keyword_bias:
+        - phrase: "service schedule"
+          weight: 2.0
+        - phrase: "maintenance interval"
+          weight: 1.8
+        - phrase: "fluids list"
+          weight: 1.6
+        - phrase: "torque spec"
+          weight: 1.6
+        - phrase: "tightening torque"
+          weight: 1.5
+        - phrase: "pre-delivery"
+          weight: 1.3
+      fallback_groups: ["11", "12", "13",
+
+  - group_id: "11"
+    name: "Engine (Motor) – Top & Bottom End"
+    tags: ["engine", "valves", "oil", "plugs", "starter", "compression", "cam_chain", "heads"]
+    oem:
+      primary_pdf: "R1150RT Repair Manual.pdf"
+      page_hint: "Group 11 section (engine assembly/disassembly, lubrication, valve train)"
+      sibling_docs:
+        - "R1150RT Maintenance Instructions.pdf"
+        - "R1150RT Riders Manual.pdf"
+    tasks:
+      - change_engine_oil_and_filter
+      - check_set_valve_clearances
+      - replace_spark_plugs
+      - diagnose_no_start_or_misfire
+      - compression_leakdown_test
+      - starter_remove_overhaul
+      - oil_leak_source_find
+    symptoms:
+      - hard_start_when_hot
+      - intermittent_misfire_under_load
+      - loud_ticking_valve_noise
+      - oil_usage_above_normal
+      - starter_click_no_crank
+    tools:
+      required:
+        - "Feeler gauges (0.15 mm IN / 0.30 mm EX typical)"
+        - "Valve cover gasket set / reusable grommets"
+      optional:
+        - "Compression tester"
+        - "Leak-down tester"
+        - "Starter overhaul kit (Valeo/Bosch depending on unit)"
+    specs:
+      items:
+        - key: "engine_oil_capacity_incl_filter"
+          value: "3.75"
+          unit: "L"
+          source: "OEM"
+          note: "Warm engine; verify on sight glass after run/settle."
+        - key: "idle_speed"
+          value: "1100 ± 50"
+          unit: "rpm"
+          source: "OEM"
+          note: "Set after throttle-body balance."
+        - key: "valve_clearance_intake"
+          value: "0.15"
+          unit: "mm"
+          source: "OEM"
+          note: "Cold engine"
+        - key: "valve_clearance_exhaust"
+          value: "0.30"
+          unit: "mm"
+          source: "OEM"
+          note: "Cold engine"
+        - key: "spark_plug_types_compatible"
+          value: "NGK DCPR7E; Bosch FR7LDC"
+          unit: null
+          source: "Expert"
+          note: "Commonly used on R1150RT; verify gap and heat range; twin-spark variants use paired plugs."
+    resources:
+      - title: "Spark Plug Spec & Cross-Refs (NGK/Bosch)"
+        url: "https://bmwfault.codes/ (for codes) + curated spark plug references"
+        source_type: "Expert"
+        authority_rank: 6
+        role: "Parts/Spec"
+        tags: ["spark_plugs", "spec", "cross_reference"]
+        notes: "Use NGK DCPR7E or Bosch FR7LDC; cross-ref as needed."
+      - title: "Largiader – Starter / Electrical Topics (Valeo, Charging)"
+        url: "http://www.largiader.com/tech/valeo/"
+        source_type: "Expert"
+        authority_rank: 7
+        role: "Diagnosis"
+        tags: ["starter", "valeo", "solenoid", "overhaul"]
+        notes: "Failure modes, magnets, rebuild notes for Valeo starters used on Oilheads."
+      - title: "ADV – Starter Overhaul / Squeak Repair (Oilhead)"
+        url: "http://advrider.com/index.php?resources/squeeking-starter-repair.53/"
+        source_type: "Community"
+        authority_rank: 4
+        role: "Procedure supplement"
+        tags: ["starter", "overhaul"]
+        notes: "Field-tested teardown and lube points."
+      - title: "GS-911 – Functionality Chart"
+        url: "https://www.hexgs911.com/function-chart/"
+        source_type: "Expert"
+        authority_rank: 6
+        role: "Diagnosis"
+        tags: ["codes", "live_values", "motronic"]
+        notes: "Use for live values, fault reads post no-start/misfire, TPS relearn checks."
+    routing:
+      keyword_bias:
+        - phrase: "valve clearance"
+          weight: 1.8
+        - phrase: "spark plug"
+          weight: 1.6
+        - phrase: "starter"
+          weight: 1.5
+        - phrase: "compression test"
+          weight: 1.4
+        - phrase: "oil leak"
+          weight: 1.2
+      fallback_groups: ["12", "13"]
+
+  - group_id: "12"
+    name: "Engine Electrics – Starter, Alternator, Ignition System"
+    tags: ["starter", "alternator", "ignition", "HES", "spark", "charging", "motronic"]
+    oem:
+      primary_pdf: "R1150RT Repair Manual.pdf"
+      page_hint: "Group 12 section (starter, alternator, ignition system, wiring harness)"
+      sibling_docs:
+        - "R1150RT Electrical Schematic.pdf"
+        - "R1150RT Maintenance Instructions.pdf"
+        - "R1150RT Riders Manual.pdf"
+    tasks:
+      - inspect_starter_motor_and_solenoid
+      - alternator_output_test
+      - hall_sensor_inspection_and_timing
+      - ignition_coil_primary_secondary_resistance_check
+      - throttle_position_sensor_relearn_after_battery_disconnect
+      - diagnose_no_spark_no_start
+    symptoms:
+      - no_crank_click_only
+      - engine_cranks_no_ignition
+      - intermittent_cutout_when_hot
+      - ABS_or_warning_lights_flicker_with_rev
+      - low_voltage_fault_codes
+    tools:
+      required:
+        - "Digital multimeter with duty cycle and frequency measurement"
+        - "12V test lamp or LED probe"
+        - "Feeler gauge or TDC locator for HES timing"
+      optional:
+        - "Oscilloscope for signal diagnostics"
+        - "GS-911 or Motoscan for fault code reading"
+    specs:
+      items:
+        - key: "charging_voltage_at_3k_rpm"
+          value: "13.8–14.4"
+          unit: "V"
+          source: "Expert"
+          note: "Normal Oilhead alternator output"
+        - key: "spark_plug_gap"
+          value: "0.8"
+          unit: "mm"
+          source: "OEM"
+          note: "Typical for NGK DCPR7E / Bosch FR7LDC"
+        - key: "alternator_output_rating"
+          value: "700"
+          unit: "W"
+          source: "OEM"
+          note: "At 5,000 rpm (approx.)"
+    resources:
+      - title: "Largiader – Charging System and Diode Board Articles"
+        url: "http://www.largiader.com/articles/charging/"
+        source_type: "Expert"
+        authority_rank: 7
+        role: "Diagnosis"
+        tags: ["alternator", "diode_board", "charging"]
+        notes: "Covers Oilhead alternator design, diode board layout, and field failures."
+      - title: "Buchanan – Motorcycle Charging System Testing"
+        url: "http://www.buchanan1.net/charge.shtml"
+        source_type: "Expert"
+        authority_rank: 6
+        role: "Diagnosis"
+        tags: ["charging", "voltage_regulator"]
+        notes: "Stepwise alternator and regulator diagnostics."
+      - title: "Jhau – Starter and Electrical Systems"
+        url: "http://jhau.maliwi.de/mot/r-elec.html"
+        source_type: "Expert"
+        authority_rank: 6
+        role: "Procedure supplement"
+        tags: ["starter", "ignition", "relay_logic"]
+        notes: "Starter relay logic and signal path explanation for Oilheads."
+      - title: "Valeo Starter Rebuild Guide (Edelweiss SmugMug)"
+        url: "https://edelweiss.smugmug.com/Motorcycles/Technical-Stuff/BMW-R1150-GS-Adventure-Valeo/"
+        source_type: "Expert"
+        authority_rank: 6
+        role: "Procedure supplement"
+        tags: ["starter", "overhaul"]
+        notes: "Photo documentation of Valeo starter rebuild."
+      - title: "Fluke – Digital Multimeter Usage Guide"
+        url: "http://support.fluke.com/find-sales...SEN-MAY-12&utm_medium=email&utm_source=Eloqua"
+        source_type: "Expert"
+        authority_rank: 4
+        role: "Method"
+        tags: ["measurement", "voltage", "continuity"]
+        notes: "Safe use of DMM for automotive testing."
+    routing:
+      keyword_bias:
+        - phrase: "starter"
+          weight: 2.0
+        - phrase: "alternator"
+          weight: 1.8
+        - phrase: "ignition"
+          weight: 1.6
+        - phrase: "no spark"
+          weight: 1.5
+        - phrase: "charging system"
+          weight: 1.5
+        - phrase: "hall sensor"
+          weight: 1.3
+        - phrase: "HES"
+          weight: 1.3
+      fallback_groups: ["11", "61", "34"]
+
+  - group_id: "13"
+    name: "Fuel Preparation and Control – Injection and Air System"
+    tags: ["fuel_injection", "throttle_body", "TPS", "injector", "air_filter", "idle", "surge"]
+    oem:
+      primary_pdf: "R1150RT Repair Manual.pdf"
+      page_hint: "Group 13 section (fuel injection system, air intake system, throttle bodies)"
+      sibling_docs:
+        - "R1150RT Maintenance Instructions.pdf"
+        - "R1150RT Riders Manual.pdf"
+    tasks:
+      - remove_and_clean_throttle_bodies
+      - synchronize_throttle_bodies
+      - inspect_and_clean_air_filter
+      - check_fuel_pressure_and_injector_flow
+      - replace_fuel_injectors_or_o_rings
+      - calibrate_throttle_position_sensor
+      - diagnose_idle_or_surging_issue
+    symptoms:
+      - engine_surges_at_constant_throttle
+      - erratic_idle_speed
+      - poor_acceleration_or_flat_spot
+      - black_exhaust_smoke_rich_condition
+      - fuel_leak_or_strong_smell
+    tools:
+      required:
+        - "Fuel pressure gauge (0–6 bar)"
+        - "TwinMax or vacuum gauge for throttle sync"
+        - "Torx/Allen keys for TB removal"
+      optional:
+        - "Injector test bench or ultrasonic cleaner"
+        - "GS-911 for TPS calibration and live values"
+    specs:
+      items:
+        - key: "fuel_pressure_nominal"
+          value: "3.0"
+          unit: "bar"
+          source: "OEM"
+          note: "At rail with vacuum disconnected"
+        - key: "idle_speed"
+          value: "1100 ± 50"
+          unit: "rpm"
+          source: "OEM"
+          note: "Set after TB sync and TPS check"
+        - key: "air_filter_replacement_interval"
+          value: "20,000"
+          unit: "km"
+          source: "OEM"
+          note: "Replace sooner in dusty conditions"
+        - key: "spark_plug"
+          value: "NGK DCPR7E / Bosch FR7LDC"
+          unit: null
+          source: "OEM"
+          note: "Verify heat range for model year"
+    resources:
+      - title: "Throttle Body Tips and Synchronization (ADV/BMWSportTouring)"
+        url: "https://www.bmwsporttouring.com/topic/97315-04-r1150rt-throttle-body-tipsquestions/#comment-1054481"
+        source_type: "Community"
+        authority_rank: 5
+        role: "Procedure discussion"
+        tags: ["throttle_body", "sync"]
+        notes: "Common methods and issues with TB balance on Oilheads."
+      - title: "Fuel Injection System Overview (Bosch Motronic MA 2.4)"
+        url: "http://www.largiader.com/"
+        source_type: "Expert"
+        authority_rank: 7
+        role: "Theory"
+        tags: ["motronic", "fuel_map"]
+        notes: "Covers operation of Motronic control unit used on R1150RT."
+      - title: "Oilhead Carbon Canister Removal (IBMWR)"
+        url: "https://ibmwr.org/index.php/1997/07/10/carbon-canister-removal/"
+        source_type: "Expert"
+        authority_rank: 6
+        role: "Procedure supplement"
+        tags: ["evap", "fuel_tank", "emissions"]
+        notes: "Common procedure for simplifying evap system."
+      - title: "Fuel Injection Service Basics – General Bosch EFI Theory"
+        url: "http://garnet.acns.fsu.edu/~jroche/"
+        source_type: "Theory"
+        authority_rank: 3
+        role: "Theory"
+        tags: ["injection", "mixture", "tuning"]
+        notes: "High-level EFI tuning theory background."
+      - title: "RealOEM – Fuel Preparation Exploded View"
+        url: "https://www.realoem.com/bmw/enUS/partgrp?id=0499-USA-09-2003-R22-BMW-R_1150_RT_00_0419%2C0499_"
+        source_type: "OEM"
+        authority_rank: 9
+        role: "Parts"
+        tags: ["fuel_line", "injector", "regulator"]
+        notes: "Shows fuel pump module, filter, and regulator assemblies."
+    routing:
+      keyword_bias:
+        - phrase: "fuel injection"
+          weight: 2.0
+        - phrase: "throttle body"
+          weight: 1.8
+        - phrase: "TPS"
+          weight: 1.6
+        - phrase: "idle"
+          weight: 1.4
+        - phrase: "surge"
+          weight: 1.4
+        - phrase: "rich mixture"
+          weight: 1.3
+        - phrase: "fuel filter"
+          weight: 1.2
+      fallback_groups: ["11", "12", "16"]
+
+  - group_id: "16"
+    name: "Fuel Tank & Lines – In-tank Module, QDs, Vents/Overflow"
+    tags: ["fuel_tank", "fuel_lines", "quick_disconnect", "QD", "fuel_filter", "pump", "level_sender", "regulator", "evap", "canister", "vent", "overflow"]
+    oem:
+      primary_pdf: "R1150RT Repair Manual.pdf"
+      page_hint: "Group 16 section (tank removal/installation, in-tank filter, vent/overflow routing, quick-disconnects)"
+      sibling_docs:
+        - "R1150RT Maintenance Instructions.pdf"
+        - "R1150RT Riders Manual.pdf"
+        - "R1150RT Electrical Schematic.pdf"
+    tasks:
+      - remove_and_install_fuel_tank
+      - replace_in_tank_fuel_filter
+      - service_quick_disconnects_and_hose_clamps
+      - inspect_and_replace_fuel_pump_or_u_hose
+      - test_fuel_level_sender_and_low_fuel_light
+      - verify_vent_and_overflow_hose_routing
+      - inspect_and_service_evap_canister_lines
+      - replace_tank_gasket_and_seal_ring
+    symptoms:
+      - fuel_smell_or_external_leak_near_qds
+      - engine_stalls_low_fuel_light_intermittent
+      - hesitation_under_load_due_to_restricted_filter
+      - vacuum_in_tank_whoosh_on_cap_open
+      - wet_right_side_cover_from_overflow
+    tools:
+      required:
+        - "Fuel line pliers (BMW 13 1 500 or equivalent)"
+        - "Hose clamp pliers and fuel-safe clamps"
+        - "Torx tools for pump-plate fasteners"
+      optional:
+        - "Fuel pressure gauge (0–6 bar) for post-service verification"
+        - "Ultrasonic cleaner for injectors if contamination suspected"
+    specs:
+      items:
+        - key: "fuel_filter_service_interval"
+          value: "40,000"
+          unit: "km"
+          source: "OEM"
+          note: "Interval per maintenance schedule; reduce if contaminated fuel suspected"
+        - key: "fuel_pressure_nominal"
+          value: "3.0"
+          unit: "bar"
+          source: "OEM"
+          note: "At rail; verify after any in-tank work"
+        - key: "hose_type"
+          value: "SAE J30R10 (submersible) for in-tank U-hose"
+          unit: null
+          source: "Expert"
+          note: "Use only submersible-rated line inside tank"
+    resources:
+      - title: "RealOEM – Fuel / Tank / Lines (exploded parts & numbers)"
+        url: "https://www.realoem.com/bmw/enUS/partgrp?id=0499-USA-09-2003-R22-BMW-R_1150_RT_00_0419%2C0499_"
+        source_type: "OEM"
+        authority_rank: 9
+        role: "Parts"
+        tags: ["tank", "pump", "filter", "level_sender", "hoses", "qd", "gaskets"]
+        notes: "Exploded diagrams for tank internals, seals, and hose routing."
+      - title: "BMW Service Schedules (A&S) – filter interval cross-check"
+        url: "http://www.ascycles.com/bmw_motorcycle_service_and_maintenance_schedules.aspx"
+        source_type: "Expert"
+        authority_rank: 6
+        role: "Schedule reference"
+        tags: ["intervals", "fuel_filter"]
+        notes: "Confirms filter interval and related maintenance tasks."
+      - title: "IBMWR – Oilhead Carbon Canister Removal"
+        url: "https://ibmwr.org/index.php/1997/07/10/carbon-canister-removal/"
+        source_type: "Expert"
+        authority_rank: 6
+        role: "Procedure supplement"
+        tags: ["evap", "canister", "vent_routing"]
+        notes: "Explains evap plumbing and options; useful when diagnosing venting issues."
+      - title: "POR-15 Tank Reline (MCN PDF) – contamination remediation"
+        url: "https://mklsportster.com/wp-content/uploads/mcn-por15.pdf"
+        source_type: "Expert"
+        authority_rank: 4
+        role: "Remediation"
+        tags: ["tank_lining", "rust", "contamination"]
+        notes: "Method for restoring corroded/contaminated tanks when debris repeatedly clogs the filter."
+      - title: "Beemer Boneyard – QDs, filters, submersible hose, clamps"
+        url: "http://www.beemerboneyard.com/"
+        source_type: "Supplier"
+        authority_rank: 4
+        role: "Parts"
+        tags: ["quick_disconnect", "filter", "hose"]
+        notes: "Common Oilhead parts kit source (metal QDs, Mahle filters, SAE J30R10 hose)."
+    routing:
+      keyword_bias:
+        - phrase: "fuel tank"
+          weight: 2.0
+        - phrase: "fuel filter"
+          weight: 1.9
+        - phrase: "quick disconnect"
+          weight: 1.7
+        - phrase: "vent hose"
+          weight: 1.5
+        - phrase: "overflow"
+          weight: 1.4
+        - phrase: "fuel smell"
+          weight: 1.4
+        - phrase: "evap canister"
+          weight: 1.3
+      fallback_groups: ["13", "11", "61"]
+
+  - group_id: "18"
+    name: "Exhaust System – Headers, Collector/Cat, Silencer, O₂ Sensor"
+    tags: ["exhaust", "headers", "collector", "catalyst", "silencer", "o2_sensor", "gaskets", "clamps"]
+    oem:
+      primary_pdf: "R1150RT Repair Manual.pdf"
+      page_hint: "Group 18 section (manifold removal/installation, clamp specs, O₂ sensor service)"
+      sibling_docs:
+        - "R1150RT Maintenance Instructions.pdf"
+        - "R1150RT Riders Manual.pdf"
+    tasks:
+      - remove_and_install_headers
+      - replace_exhaust_gaskets_and_clamps
+      - remove_and_install_silencer
+      - service_o2_sensor_and_harness
+      - inspect_catalyst_and_collector_for_leaks
+      - align_exhaust_system_and_check_clearances
+    symptoms:
+      - exhaust_leak_ticking_noise_at_heads
+      - sulfur_or_fumes_near_rider
+      - o2_sensor_fault_code_or_poor_fuel_trim
+      - rattling_silencer_or_bracket_failure
+      - soot_traces_at_joints_or_clamps
+    tools:
+      required:
+        - "O₂ sensor socket (22 mm) with harness cutout"
+        - "Torque wrench (0–60 Nm range)"
+        - "Penetrant and copper/anti-seize compound rated for exhaust temps"
+      optional:
+        - "Infrared thermometer for post-repair leak checks"
+        - "Feeler gauges/straightedge for flange flatness"
+    specs:
+      items:
+        - key: "o2_sensor_thread_prep"
+          value: "high-temp anti-seize on threads only (avoid sensor tip)"
+          unit: null
+          source: "Expert"
+          note: "Prevents galling; do not contaminate sensing element"
+        - key: "gasket_replacement_policy"
+          value: "replace on any joint disturbed"
+          unit: null
+          source: "OEM"
+          note: "Crush rings and manifold gaskets are single-use"
+        - key: "post_service_check"
+          value: "run engine and check joints for leaks/soot; verify no contact with bodywork"
+          unit: null
+          source: "OEM"
+          note: "Re-torque after heat cycle if specified by clamp manufacturer"
+    resources:
+      - title: "RealOEM – Exhaust System (R22 platform) – exploded parts"
+        url: "https://www.realoem.com/bmw/enUS/partgrp?id=0499-USA-09-2003-R22-BMW-R_1150_RT_00_0419%2C0499_"
+        source_type: "OEM"
+        authority_rank: 9
+        role: "Parts"
+        tags: ["headers", "collector", "silencer", "clamps", "gaskets", "o2"]
+        notes: "Use to confirm PNs for gaskets, clamps, O₂ sensor, brackets, and hardware."
+      - title: "Comprehensive Technical Pages – Largiader / Snowbum (Oilhead)"
+        url: "http://www.largiader.com/"
+        source_type: "Expert"
+        authority_rank: 7
+        role: "Procedure supplement"
+        tags: ["oilhead", "service_practices", "fasteners"]
+        notes: "General Oilhead service practices, material notes, and failure patterns relevant to exhaust work."
+      - title: "Major US Parts Sources – Exhaust hardware & O₂ sensors"
+        url: "http://www.bobsbmw.com/"
+        source_type: "Supplier"
+        authority_rank: 4
+        role: "Parts"
+        tags: ["gaskets", "clamps", "o2", "mounts"]
+        notes: "Good availability for clamps, gaskets, and O₂ sensors; compare with Beemer Boneyard."
+      - title: "Beemer Boneyard – common service parts"
+        url: "http://www.beemerboneyard.com/"
+        source_type: "Supplier"
+        authority_rank: 4
+        role: "Parts"
+        tags: ["o2", "gaskets", "hardware"]
+        notes: "Aftermarket/OEM-equivalent O₂ sensors, crush rings, and hardware."
+      - title: "Motobins (UK) – exhaust clamps and gaskets"
+        url: "http://www.motobins.co.uk/"
+        source_type: "Supplier"
+        authority_rank: 4
+        role: "Parts"
+        tags: ["clamps", "gaskets"]
+        notes: "Cost-effective exhaust hardware; verify fitment by model year."
+    routing:
+      keyword_bias:
+        - phrase: "exhaust leak"
+          weight: 2.0
+        - phrase: "o2 sensor"
+          weight: 1.8
+        - phrase: "silencer"
+          weight: 1.6
+        - phrase: "headers"
+          weight: 1.5
+        - phrase: "catalyst"
+          weight: 1.4
+        - phrase: "exhaust clamp"
+          weight: 1.3
+      fallback_groups: ["13", "11", "16"]
+
+  - group_id: "21"
+    name: "Clutch – Housing, Disc, Slave Cylinder, Hydraulic Line"
+    tags: ["clutch", "slave_cylinder", "hydraulic_line", "master_cylinder", "input_spline", "throwout_bearing", "actuator", "bleed"]
+    oem:
+      primary_pdf: "R1150RT Repair Manual.pdf"
+      page_hint: "Group 21 section (clutch housing, slave cylinder, hydraulic service, torque specs)"
+      sibling_docs:
+        - "R1150RT Maintenance Instructions.pdf"
+        - "R1150RT Riders Manual.pdf"
+    tasks:
+      - drain_and_flush_clutch_hydraulic_fluid
+      - replace_slave_cylinder_and_pushrod_seal
+      - inspect_and_replace_clutch_disc_and_pressure_plate
+      - check_master_cylinder_lever_travel_and_switch
+      - replace_hydraulic_line_with_stainless_option
+      - remove_transmission_for_clutch_service
+      - lubricate_transmission_input_spline_when_split
+    symptoms:
+      - clutch_slips_under_load
+      - notchy_or_grabby_engagement
+      - fluid_leak_at_gearbox_rear_or_weeping_from_clutch_housing
+      - squeal_or_chirp_when_pull_lever (throwout_bearing)
+      - lever_pressure_changes_or_inconsistent_bite_point
+    tools:
+      required:
+        - "Torque wrench (10–60 Nm range)"
+        - "Bleeder kit/syringe suitable for clutch fluid"
+        - "Alignment mandrel for clutch hub/input shaft"
+      optional:
+        - "Long-reach bit set for slave cylinder fasteners"
+        - "Transmission support/strap for rear subframe pivot"
+    specs:
+      items:
+        - key: "clutch_fluid_service_interval"
+          value: "biennial"
+          unit: null
+          source: "OEM"
+          note: "Match service cadence with brake control-circuit policy"
+        - key: "release_bearing_inspection"
+          value: "check for smooth rotation and noise; replace if rough"
+          unit: null
+          source: "Expert"
+          note: "Any gritty feel/noise warrants slave/bearing service"
+        - key: "spline_lubrication_interval"
+          value: "when gearbox is removed or at major service requiring split"
+          unit: null
+          source: "Expert"
+          note: "Use appropriate high-moly paste; avoid clutch friction surfaces"
+    resources:
+      - title: "RealOEM – Clutch Assembly (R22 platform)"
+        url: "https://www.realoem.com/bmw/enUS/partgrp?id=0499-USA-09-2003-R22-BMW-R_1150_RT_00_0419%2C0499_"
+        source_type: "OEM"
+        authority_rank: 9
+        role: "Parts"
+        tags: ["clutch_disc", "pressure_plate", "pushrod", "slave_cylinder", "seals"]
+        notes: "Exploded view and part numbers for clutch pack, slave, and hardware."
+      - title: "Anton Largiader – Spline Lube / Transmission Split Notes"
+        url: "http://www.largiader.com/tech/oiltrans/"
+        source_type: "Expert"
+        authority_rank: 8
+        role: "Procedure supplement"
+        tags: ["spline", "gearbox_removal", "clutch_service"]
+        notes: "Best-practices for input-spline lubrication during clutch work."
+      - title: "ADVrider – R1150 Spline Lube (procedural thread)"
+        url: "http://advrider.com/forums/showthread.php?t=683210"
+        source_type: "Community"
+        authority_rank: 5
+        role: "Procedure discussion"
+        tags: ["spline", "gearbox_split", "tips"]
+        notes: "Field-proven tips, tool choices, and alignment tricks during clutch/spline service."
+      - title: "BMW Service Schedules (A&S) – Clutch/Control Fluid Cadence"
+        url: "http://www.ascycles.com/bmw_motorcycle_service_and_maintenance_schedules.aspx"
+        source_type: "Expert"
+        authority_rank: 6
+        role: "Schedule reference"
+        tags: ["intervals", "clutch_fluid"]
+        notes: "Confirms biennial clutch fluid service alongside brake control circuit."
+      - title: "Beemer Boneyard – Slave Cylinders, Lines, Seals"
+        url: "http://www.beemerboneyard.com/"
+        source_type: "Supplier"
+        authority_rank: 4
+        role: "Parts"
+        tags: ["slave_cylinder", "stainless_line", "seals"]
+        notes: "Common replacement parts kits for Oilheads; compare OEM vs aftermarket."
+    routing:
+      keyword_bias:
+        - phrase: "clutch slip"
+          weight: 2.0
+        - phrase: "slave cylinder"
+          weight: 1.8
+        - phrase: "clutch fluid"
+          weight: 1.6
+        - phrase: "spline lube"
+          weight: 1.5
+        - phrase: "gearbox removal"
+          weight: 1.4
+        - phrase: "throwout bearing"
+          weight: 1.3
+      fallback_groups: ["23", "11", "12"]
+
+  - group_id: "23"
+    name: "Gearbox (Transmission) – Selector Mechanism, Seals, Oil Service"
+    tags: ["gearbox", "transmission", "selector", "input_shaft", "output_shaft", "gear_oil", "shift_lever", "seals", "spline"]
+    oem:
+      primary_pdf: "R1150RT Repair Manual.pdf"
+      page_hint: "Group 23 section (gearbox removal, selector shaft, seals, oil level, torque specs)"
+      sibling_docs:
+        - "R1150RT Maintenance Instructions.pdf"
+        - "R1150RT Riders Manual.pdf"
+    tasks:
+      - drain_and_refill_gearbox_oil
+      - inspect_for_leaks_at_input_or_output_shaft
+      - replace_selector_shaft_or_output_seals
+      - check_and_adjust_shift_linkage
+      - remove_and_install_gearbox_for_clutch_access
+      - lubricate_input_spline_and_coupling
+      - verify_neutral_switch_function
+    symptoms:
+      - hard_or_notchy_shifting
+      - oil_leak_between_engine_and_gearbox
+      - false_neutral_between_gears
+      - metallic_noise_during_shift
+      - clutch_slip_due_to_input_seal_leak
+    tools:
+      required:
+        - "Torque wrench (range 10–120 Nm)"
+        - "Spline lube applicator or long brush"
+        - "Seal puller and drift set"
+      optional:
+        - "Alignment mandrel for clutch/input shaft"
+        - "Transmission jack or support stand"
+    specs:
+      items:
+        - key: "gearbox_oil_capacity"
+          value: "0.8"
+          unit: "L"
+          source: "OEM"
+          note: "SAE 90 GL-5 gear oil; fill to bottom of threads with bike level"
+        - key: "oil_change_interval"
+          value: "40,000"
+          unit: "km"
+          source: "OEM"
+          note: "Per maintenance schedule"
+        - key: "drain_plug_torque"
+          value: "30"
+          unit: "Nm"
+          source: "OEM"
+          note: "Replace crush washer; do not overtighten"
+        - key: "neutral_switch_test"
+          value: "continuity_only_in_neutral"
+          unit: null
+          source: "Expert"
+          note: "Check with DMM at connector under battery tray"
+    resources:
+      - title: "RealOEM – Gearbox / Transmission Assembly (R22 platform)"
+        url: "https://www.realoem.com/bmw/enUS/partgrp?id=0499-USA-09-2003-R22-BMW-R_1150_RT_00_0419%2C0499_"
+        source_type: "OEM"
+        authority_rank: 9
+        role: "Parts"
+        tags: ["gearbox", "seals", "selector", "neutral_switch"]
+        notes: "Exploded diagrams showing all gearbox internals and seals."
+      - title: "Anton Largiader – Input Spline Lubrication and Transmission Removal"
+        url: "http://www.largiader.com/tech/oiltrans/"
+        source_type: "Expert"
+        authority_rank: 8
+        role: "Procedure supplement"
+        tags: ["spline", "transmission", "clutch", "maintenance"]
+        notes: "Definitive guide on spline lube, clutch hub, and gearbox removal procedure."
+      - title: "IBMWR – Transmission Removal and Spline Maintenance"
+        url: "https://ibmwr.org/index.php/1998/06/20/transmission-removal-on-an-r1100rt/"
+        source_type: "Expert"
+        authority_rank: 6
+        role: "Procedure supplement"
+        tags: ["transmission", "clutch_access", "removal"]
+        notes: "Procedure for Oilhead gearbox removal; applies directly to R1150RT."
+      - title: "BMW Service Schedules (A&S Cycles)"
+        url: "http://www.ascycles.com/bmw_motorcycle_service_and_maintenance_schedules.aspx"
+        source_type: "Expert"
+        authority_rank: 6
+        role: "Schedule reference"
+        tags: ["intervals", "gearbox_oil"]
+        notes: "Confirms gearbox oil-change interval and service inspection tasks."
+      - title: "BMWSportTouring – Transmission Noise and Shift Feel Thread"
+        url: "https://www.bmwsporttouring.com/topic/106516-2004-r1150rt-engine-cut-out-while-riding-and-will-not-start/#comment-1138799"
+        source_type: "Community"
+        authority_rank: 4
+        role: "Diagnosis"
+        tags: ["noise", "shift", "neutral"]
+        notes: "User experiences with gearbox noise, shift stiffness, and oil type effects."
+      - title: "Beemer Boneyard – Seals, Gaskets, Crush Washers"
+        url: "http://www.beemerboneyard.com/"
+        source_type: "Supplier"
+        authority_rank: 4
+        role: "Parts"
+        tags: ["seal", "washer", "plug"]
+        notes: "Common transmission seals, washers, and plugs for Oilheads."
+    routing:
+      keyword_bias:
+        - phrase: "gearbox"
+          weight: 2.0
+        - phrase: "transmission"
+          weight: 1.8
+        - phrase: "shift"
+          weight: 1.6
+        - phrase: "neutral switch"
+          weight: 1.4
+        - phrase: "spline"
+          weight: 1.4
+        - phrase: "gear oil"
+          weight: 1.3
+      fallback_groups: ["21", "33", "11"]
+
+  - group_id: "31"
+    name: "Front Suspension – Telelever / Forks"
+    tags: ["telelever", "front_fork", "ball_joint", "front_shock", "spring_strut", "fork_seal", "front_end"]
+    oem:
+      primary_pdf: "R1150RT Repair Manual.pdf"
+      page_hint: "Group 31 section (Telelever system, fork removal, ball joint torque, spring strut)"
+      sibling_docs:
+        - "R1150RT Maintenance Instructions.pdf"
+        - "R1150RT Riders Manual.pdf"
+    tasks:
+      - inspect_telelever_ball_joint
+      - replace_front_spring_strut
+      - torque_telelever_pivot
+      - change_fork_seals
+      - align_front_end_after_reassembly
+      - check_front_suspension_sag
+    symptoms:
+      - front_end_knock_on_braking
+      - steering_wobble
+      - oil_leak_on_fork_tube
+      - harsh_ride_or_no_dampening
+    tools:
+      required:
+        - "Ball joint socket (BMW 31 2 650 or equivalent)"
+        - "Fork alignment tool / straightedge"
+        - "Torque wrench (0–100 Nm range)"
+      optional:
+        - "Front stand or Telelever lift support"
+        - "Vernier caliper for fork tube measurement"
+    specs:
+      items:
+        - key: "telelever_ball_joint_torque"
+          value: "50"
+          unit: "Nm + 32°"
+          source: "OEM"
+          note: "Apply Loctite 243 to threads"
+        - key: "front_wheel_axle_torque"
+          value: "30"
+          unit: "Nm"
+          source: "OEM"
+          note: "Check alignment before final tightening"
+        - key: "fork_tube_fill_volume"
+          value: "430"
+          unit: "ml per leg"
+          source: "Expert"
+          note: "Standard fork oil (SAE 7.5 W) – verify with Ohlins/aftermarket spec if applicable"
+    resources:
+      - title: "Tony Foale – Telelever Suspension Geometry and Function"
+        url: "http://www.tonyfoale.com/"
+        source_type: "Expert"
+        authority_rank: 7
+        role: "Theory"
+        tags: ["telelever", "suspension", "geometry"]
+        notes: "Explains mechanical principles behind Telelever front end and anti-dive characteristics."
+      - title: "Ohlins Setup Manual"
+        url: "http://www.ohlins.com/Products/OwnersManuals/OM_07241-02.pdf"
+        source_type: "Expert"
+        authority_rank: 7
+        role: "Procedure supplement"
+        tags: ["shock", "spring", "damping"]
+        notes: "Guidelines for preload, rebound, and damping settings applicable to Ohlins replacement units."
+      - title: "Steve’s Workshop – Wheel Bearings and Front Alignment"
+        url: "http://steves-workshop.co.uk/vehicles/bmw/wheelbearing/wheelbearingindex.htm"
+        source_type: "Expert"
+        authority_rank: 6
+        role: "Procedure supplement"
+        tags: ["wheel", "bearing", "alignment"]
+        notes: "Front wheel bearing checks and proper alignment techniques after fork service."
+      - title: "BMWSportTouring – Telelever Noise / Fork Oil Change Threads"
+        url: "https://www.bmwsporttouring.com/forum/16-oilheads/"
+        source_type: "Community"
+        authority_rank: 4
+        role: "Forum case study"
+        tags: ["telelever", "fork_seals", "front_shock"]
+        notes: "User-reported procedures for fork oil replacement and identifying worn ball joints."
+    routing:
+      keyword_bias:
+        - phrase: "telelever"
+          weight: 2.0
+        - phrase: "front fork"
+          weight: 1.8
+        - phrase: "ball joint"
+          weight: 1.6
+        - phrase: "front suspension"
+          weight: 1.4
+        - phrase: "fork seals"
+          weight: 1.3
+      fallback_groups: ["33", "32"]
+
+   - group_id: "32"
+    name: "Steering / Handlebars / Headstock"
+    tags: ["steering", "handlebar", "headstock", "steering_bearing", "steering_stop", "steering_damper", "grips"]
+    oem:
+      primary_pdf: "R1150RT Repair Manual.pdf"
+      page_hint: "Group 32 section (handlebar mounting, lever brackets, steering head bearings, torque values)"
+      sibling_docs:
+        - "R1150RT Maintenance Instructions.pdf"
+        - "R1150RT Riders Manual.pdf"
+    tasks:
+      - remove_and_reinstall_handlebars
+      - inspect_and_replace_steering_head_bearings
+      - torque_steering_pivot_bolts
+      - align_handlebars_and_levers
+      - replace_switchgear_housings_or_grips
+      - check_steering_stop_clearance
+      - lubricate_steering_bearings
+    symptoms:
+      - handlebar_play_or_looseness
+      - notchy_steering_or_center_detent
+      - front_end_wobble_during_turn_in
+      - uneven_bar_alignment_after_tip_over
+      - stiff_or_binding_steering
+    tools:
+      required:
+        - "Steering head bearing puller (BMW 32 3 650 or equivalent)"
+        - "Torque wrench (0–100 Nm range)"
+        - "Allen and Torx socket set for bar clamps and switchgear"
+      optional:
+        - "Fork alignment gauge"
+        - "Digital inclinometer for bar alignment"
+    specs:
+      items:
+        - key: "steering_head_bearing_preload"
+          value: "hand tight + back off ¼ turn (then torque top nut to 20 Nm)"
+          unit: null
+          source: "OEM"
+          note: "Typical preload procedure per BMW Telelever steering head"
+        - key: "handlebar_clamp_torque"
+          value: "21"
+          unit: "Nm"
+          source: "OEM"
+          note: "Evenly tighten both sides in stages"
+        - key: "steering_stop_clearance"
+          value: "No contact with fairing at full lock"
+          unit: null
+          source: "OEM"
+          note: "Verify after reassembly"
+    resources:
+      - title: "BMWSportTouring – Grip Replacement (2004 R1150RT)"
+        url: "https://www.bmwsporttouring.com/topic/108973-2004-r1150rt-grip-replacement/#comment-1169138"
+        source_type: "Community"
+        authority_rank: 5
+        role: "Procedure supplement"
+        tags: ["grips", "handlebar", "switchgear"]
+        notes: "Step-by-step discussion for grip and heated-grip replacement; good photos of bar end hardware."
+      - title: "BMWSportTouring – Best Use of Radio Compartment / Accessory Routing"
+        url: "https://www.bmwsporttouring.com/topic/67228-r1150rt-best-use-of-the-radio-compartment/#comment-769130"
+        source_type: "Community"
+        authority_rank: 4
+        role: "Accessory integration"
+        tags: ["accessory_power", "routing", "handlebar"]
+        notes: "Demonstrates wiring paths for bars and control wiring leading into the radio bay."
+      - title: "RealOEM – Steering and Handlebar Exploded View"
+        url: "https://www.realoem.com/bmw/enUS/partgrp?id=0499-USA-09-2003-R22-BMW-R_1150_RT_00_0419%2C0499_"
+        source_type: "OEM"
+        authority_rank: 9
+        role: "Parts"
+        tags: ["steering_head", "handlebar", "switchgear"]
+        notes: "Shows pivot bearings, upper clamp, and lever mount hardware with OEM part numbers."
+      - title: "Anton Largiader – Steering Head Bearings (Oilhead overview)"
+        url: "http://www.largiader.com/"
+        source_type: "Expert"
+        authority_rank: 7
+        role: "Procedure reference"
+        tags: ["steering_bearing", "preload", "maintenance"]
+        notes: "General Oilhead steering bearing service notes and preload adjustment philosophy."
+      - title: "Steve’s Workshop – Front End Assembly and Wheel Alignment"
+        url: "http://steves-workshop.co.uk/vehicles/bmw/wheelbearing/wheelbearingindex.htm"
+        source_type: "Expert"
+        authority_rank: 6
+        role: "Procedure supplement"
+        tags: ["alignment", "front_end", "bearings"]
+        notes: "Ensures proper front alignment post fork or steering work."
+    routing:
+      keyword_bias:
+        - phrase: "steering head"
+          weight: 2.0
+        - phrase: "handlebar"
+          weight: 1.8
+        - phrase: "grip replacement"
+          weight: 1.6
+        - phrase: "steering bearing"
+          weight: 1.4
+        - phrase: "wobble"
+          weight: 1.2
+      fallback_groups: ["31", "33"]
+
+  - group_id: "33"
+    name: "Rear Wheel Drive – Final Drive & Swing Arm"
+    tags: ["final_drive", "rear_wheel", "swing_arm", "pivot_bearings", "reaction_link", "driveshaft", "gear_oil", "paralever"]
+    oem:
+      primary_pdf: "R1150RT Repair Manual.pdf"
+      page_hint: "Group 33 section (final drive, swing arm, pivot bearings, torque specs)"
+      sibling_docs:
+        - "R1150RT Maintenance Instructions.pdf"
+        - "R1150RT Riders Manual.pdf"
+    tasks:
+      - change_final_drive_oil
+      - check_pivot_bearing_play
+      - replace_pivot_bearings
+      - inspect_driveshaft_u_joint
+      - reinstall_rear_wheel
+      - torque_reaction_link
+      - reseal_final_drive_cover
+      - diagnose_final_drive_leak
+    symptoms:
+      - rear_wheel_play_or_knock
+      - oil_leak_from_rear_hub
+      - whining_noise_under_load
+      - driveshaft_vibration
+      - gear_oil_smell_after_ride
+    tools:
+      required:
+        - "Pivot bearing torque adapter (BMW 33 1 651 or equivalent)"
+        - "Seal puller and bearing drivers"
+        - "Torque wrench (0–200 Nm range)"
+      optional:
+        - "Infrared thermometer for bearing temperature monitoring"
+        - "Dial indicator for lateral play measurement"
+    specs:
+      items:
+        - key: "final_drive_oil_capacity"
+          value: "0.25"
+          unit: "L"
+          source: "OEM"
+          note: "SAE 90 GL-5 gear oil; fill to bottom of threads with wheel horizontal"
+        - key: "rear_wheel_bolt_torque"
+          value: "105"
+          unit: "Nm"
+          source: "OEM"
+          note: "Clean, dry threads; do not grease"
+        - key: "swing_arm_pivot_torque"
+          value: "160"
+          unit: "Nm"
+          source: "OEM"
+          note: "Apply Loctite 2701 to threads before torqueing"
+    resources:
+      - title: "RealOEM – Final Drive / Swing Arm Exploded View"
+        url: "https://www.realoem.com/bmw/enUS/partgrp?id=0499-USA-09-2003-R22-BMW-R_1150_RT_00_0419%2C0499_"
+        source_type: "OEM"
+        authority_rank: 9
+        role: "Parts"
+        tags: ["final_drive", "pivot", "seal", "bearing"]
+        notes: "Shows part numbers, bearings, seals, and torque-related fasteners."
+      - title: "Anton Largiader – Final Drive Service & Paralever Bearings"
+        url: "http://www.largiader.com/tech/finaldrive/"
+        source_type: "Expert"
+        authority_rank: 8
+        role: "Procedure supplement"
+        tags: ["final_drive", "paralever", "bearings", "play"]
+        notes: "Detailed teardown and setup of Oilhead final drives, including bearing preload."
+      - title: "BMWSportTouring – Driveshaft U-Joint Wear Discussion"
+        url: "https://www.bmwsporttouring.com/"
+        source_type: "Community"
+        authority_rank: 4
+        role: "Diagnosis"
+        tags: ["u_joint", "vibration", "driveshaft"]
+        notes: "Common failure indicators and replacement strategies for aged U-joints."
+    routing:
+      keyword_bias:
+        - phrase: "final drive"
+          weight: 2.0
+        - phrase: "rear wheel play"
+          weight: 1.8
+        - phrase: "pivot bearing"
+          weight: 1.6
+        - phrase: "driveshaft"
+          weight: 1.4
+        - phrase: "gear oil"
+          weight: 1.2
+      fallback_groups: ["31", "46"]
+
+  - group_id: "34"
+    name: "Brakes – Integral ABS II (iABS)"
+    tags: ["ABS", "iABS", "servo", "bleed", "brake_fluid", "warning_lights", "control_circuit", "wheel_circuit"]
+    oem:
+      primary_pdf: "R1150RT Repair Manual.pdf"
+      page_hint: "Group 34 section (bleeding procedures, control/wheel circuits, self-diagnosis)"
+      sibling_docs:
+        - "R1150RT Electrical Schematic.pdf"
+        - "R1150RT Maintenance Instructions.pdf"
+    tasks:
+      - bleed_control_circuit
+      - bleed_wheel_circuits
+      - replace_brake_lines
+      - reset_abs_fault
+      - diagnose_low_voltage_abs
+      - servo_pump_noise_check
+    symptoms:
+      - abs_warning_lights_flash_or_solid
+      - brake_service_failure_message
+      - lever_feel_spongy_after_sit
+      - fluid_leak_from_vent_tube
+      - abs_fault_after_battery_swap
+    tools:
+      required:
+        - "BMW 34 1 531 ABS resetting tool (legacy)"
+        - "Funnel/reservoir adapters compatible with iABS service ports"
+      optional:
+        - "GS-911 diagnostic interface"
+        - "Motoscan + OBD adapter"
+        - "Vacuum bleeder (Mityvac) or pressure bleeder"
+    specs:
+      items:
+        - key: "brake_fluid"
+          value: "DOT 4"
+          unit: null
+          source: "OEM"
+          note: "Annual change for wheel circuits; biennial for control circuits (interval policy at Service Schedule level)"
+    resources:
+      - title: "BMW Integral ABS Brake Bleeding & Flushing (DeHager)"
+        url: "http://users.rcn.com/dehager/service/service_abs3.pdf"
+        source_type: "Expert"
+        authority_rank: 8
+        role: "Procedure supplement"
+        tags: ["ABS", "iABS", "bleed", "reservoirs", "sequence"]
+        notes: "Canonical field guide for iABS bleed sequence; excellent diagrams and order of operations."
+      - title: "BMWSportTouring – iABS Low Voltage / Warning Lights Threads (curated)"
+        url: "https://www.bmwsporttouring.com/topic/110828-r1150rt-iabs-low-voltage/?do=findComment&comment=1194264"
+        source_type: "Community"
+        authority_rank: 5
+        role: "Diagnosis"
+        tags: ["low_voltage", "iABS", "warning_lights"]
+        notes: "Real-world failure patterns due to weak battery/charging; cross-check after any battery event."
+      - title: "BMWSportTouring – Brake Service Failure / ‘Christmas Tree’ dash"
+        url: "https://www.bmwsporttouring.com/topic/108392-2004-r1150rt-brake-service-failure-dash-looks-like-a-christmas-tree/#comment-1161088"
+        source_type: "Community"
+        authority_rank: 5
+        role: "Forum case study"
+        tags: ["iABS", "fault", "lights"]
+        notes: "Useful for mapping dash indicators to likely subsystem fault."
+      - title: "BMWSportTouring – Pads/Lines/Flush Q&A"
+        url: "https://www.bmwsporttouring.com/topic/106350-r1150rt-brakes-pads-lines-flush-question/#comment-1136889"
+        source_type: "Community"
+        authority_rank: 4
+        role: "Procedure discussion"
+        tags: ["bleed", "pads", "lines"]
+        notes: "Practical questions and gotchas when replacing lines and bleeding."
+    routing:
+      keyword_bias:
+        - phrase: "iABS"
+          weight: 2.0
+        - phrase: "brake bleed"
+          weight: 1.8
+        - phrase: "control circuit"
+          weight: 1.6
+        - phrase: "wheel circuit"
+          weight: 1.6
+        - phrase: "servo pump"
+          weight: 1.4
+        - phrase: "brake failure light"
+          weight: 1.4
+      fallback_groups: ["61", "12"]
+
+  - group_id: "36"
+    name: "Wheels & Tyres – Removal, Balancing, Bearings, Pressures"
+    tags: ["wheel", "tyre", "tire", "wheel_bearing", "balancing", "pressure", "front_wheel", "rear_wheel", "valve_stem", "torque"]
+    oem:
+      primary_pdf: "R1150RT Repair Manual.pdf"
+      page_hint: "Group 36 section (wheel removal/installation, pressures, balancing)"
+      sibling_docs:
+        - "R1150RT Maintenance Instructions.pdf"
+        - "R1150RT Riders Manual.pdf"
+    tasks:
+      - remove_front_and_rear_wheels
+      - balance_wheels_static_or_dynamic
+      - inspect_and_replace_wheel_bearings
+      - check_tyre_pressures_and_condition
+      - inspect_valve_stems_and_caps
+      - measure_wheel_rim_runout
+      - re-torque_rear_wheel_bolts
+    symptoms:
+      - front_or_rear_vibration_at_speed
+      - uneven_tyre_wear_or_cupping
+      - pulling_to_one_side
+      - wheel_play_or_knock
+      - rapid_pressure_loss_or_valve_leak
+    tools:
+      required:
+        - "Torque wrench (20–120 Nm range)"
+        - "Static/dynamic wheel balancer"
+        - "Tyre pressure gauge (accurate to ±0.1 bar)"
+      optional:
+        - "Dial indicator for runout measurement"
+        - "Bearing driver and puller set"
+        - "Infrared thermometer for bearing temp check"
+    specs:
+      items:
+        - key: "front_tyre_pressure"
+          value: "2.5"
+          unit: "bar"
+          source: "OEM"
+          note: "Standard solo load; increase slightly for pillion or heavy load"
+        - key: "rear_tyre_pressure"
+          value: "2.9"
+          unit: "bar"
+          source: "OEM"
+          note: "Standard solo load; increase for two-up riding"
+        - key: "rear_wheel_bolt_torque"
+          value: "105"
+          unit: "Nm"
+          source: "OEM"
+          note: "Tighten in star pattern on clean, dry threads"
+        - key: "front_axle_torque"
+          value: "30"
+          unit: "Nm"
+          source: "OEM"
+          note: "Align before final torque; secure pinch bolts to 22 Nm"
+        - key: "wheel_bearing_inspection"
+          value: "check play and smoothness at every tyre change"
+          unit: null
+          source: "OEM"
+          note: "Replace if rough or loose"
+    resources:
+      - title: "RealOEM – Wheel and Tyre Assembly (R22 platform)"
+        url: "https://www.realoem.com/bmw/enUS/partgrp?id=0499-USA-09-2003-R22-BMW-R_1150_RT_00_0419%2C0499_"
+        source_type: "OEM"
+        authority_rank: 9
+        role: "Parts"
+        tags: ["wheel", "bearing", "spacer", "seal", "fasteners"]
+        notes: "Exploded parts diagram with wheel spacers, seals, bearings, and fasteners."
+      - title: "Steve’s Workshop – Wheel Bearing Inspection and Replacement"
+        url: "http://steves-workshop.co.uk/vehicles/bmw/wheelbearing/wheelbearingindex.htm"
+        source_type: "Expert"
+        authority_rank: 6
+        role: "Procedure supplement"
+        tags: ["bearing", "alignment", "front_wheel", "rear_wheel"]
+        notes: "Detailed steps for checking play, removing and refitting wheel bearings."
+      - title: "Michelin / Metzeler Tyre Pressure Guidelines"
+        url: "https://www.metzeler.com/en-us/products/tires/roadtec-z8-interact.html"
+        source_type: "Expert"
+        authority_rank: 5
+        role: "Standards"
+        tags: ["pressure", "tyre", "fitment"]
+        notes: "Reference for alternate tyre brand pressures for R1150RT fitments."
+      - title: "BMWSportTouring – Vibration and Wheel Balance Discussion"
+        url: "https://www.bmwsporttouring.com/topic/56501-2004-r1150rt-vibration/#comment-632110"
+        source_type: "Community"
+        authority_rank: 4
+        role: "Diagnosis"
+        tags: ["vibration", "balancing", "alignment"]
+        notes: "Common discussion of vibration sources and balance solutions."
+      - title: "BMW Service Schedules (A&S Cycles)"
+        url: "http://www.ascycles.com/bmw_motorcycle_service_and_maintenance_schedules.aspx"
+        source_type: "Expert"
+        authority_rank: 6
+        role: "Schedule reference"
+        tags: ["service", "tyre_pressure", "inspection"]
+        notes: "Confirms check intervals for tyre pressure and wheel fasteners."
+    routing:
+      keyword_bias:
+        - phrase: "wheel removal"
+          weight: 2.0
+        - phrase: "tyre pressure"
+          weight: 1.8
+        - phrase: "wheel bearing"
+          weight: 1.6
+        - phrase: "vibration"
+          weight: 1.5
+        - phrase: "balancing"
+          weight: 1.4
+        - phrase: "runout"
+          weight: 1.3
+      fallback_groups: ["31", "32", "33", "46"]
+
+  - group_id: "46"
+    name: "Frame, Mounting Points, and Body Fittings – Subframes, Stands, Brackets"
+    tags: ["frame", "subframe", "mounts", "bracket", "footrest", "center_stand", "side_stand", "fairing_mount", "engine_mount"]
+    oem:
+      primary_pdf: "R1150RT Repair Manual.pdf"
+      page_hint: "Group 46 section (frame, mounting points, stands, brackets, footrest plates)"
+      sibling_docs:
+        - "R1150RT Maintenance Instructions.pdf"
+        - "R1150RT Riders Manual.pdf"
+    tasks:
+      - inspect_frame_for_cracks_or_corrosion
+      - check_and_torque_engine_and_subframe_mounts
+      - service_center_and_side_stand_pivots
+      - replace_footrest_plates_and_mounting_hardware
+      - inspect_fairing_and_luggage_brackets_for_alignment
+      - lubricate_pivot_points_and_linkages
+    symptoms:
+      - frame_or_mounting_bolt_looseness
+      - abnormal_vibration_or_resonance
+      - side_stand_droop_or_binding
+      - cracked_bracket_or_missing_spacer
+      - misaligned_fairing_or_contact_with_tank
+    tools:
+      required:
+        - "Torque wrench (20–160 Nm range)"
+        - "Allen/Torx socket set for stand and mount bolts"
+        - "Grease gun or applicator for stand bushings"
+      optional:
+        - "Thread locker (Loctite 243 / 2701 as specified)"
+        - "Inspection mirror and flashlight for hidden joints"
+    specs:
+      items:
+        - key: "subframe_mount_torque"
+          value: "43"
+          unit: "Nm"
+          source: "OEM"
+          note: "Typical rear subframe mounting bolts; verify per variant"
+        - key: "engine_mount_torque"
+          value: "55"
+          unit: "Nm"
+          source: "OEM"
+          note: "Check at 20,000 km intervals for security"
+        - key: "center_stand_pivot_torque"
+          value: "47"
+          unit: "Nm"
+          source: "OEM"
+          note: "Apply light grease to bushings before torqueing"
+        - key: "threadlocker_type"
+          value: "Loctite 243 (medium strength) unless otherwise noted"
+          unit: null
+          source: "Expert"
+          note: "Loctite 2701 for permanent joints only"
+    resources:
+      - title: "RealOEM – Frame and Mounting Components (R22 platform)"
+        url: "https://www.realoem.com/bmw/enUS/partgrp?id=0499-USA-09-2003-R22-BMW-R_1150_RT_00_0419%2C0499_"
+        source_type: "OEM"
+        authority_rank: 9
+        role: "Parts"
+        tags: ["frame", "bracket", "stand", "mount"]
+        notes: "Exploded diagrams for subframes, stands, and mounting brackets."
+      - title: "Largiader – Oilhead Frame and Mounting Notes"
+        url: "http://www.largiader.com/"
+        source_type: "Expert"
+        authority_rank: 7
+        role: "Theory"
+        tags: ["frame", "alignment", "mounts"]
+        notes: "Explains alignment considerations when reinstalling rear subframe and swingarm."
+      - title: "BMWSportTouring – Fairing and Body Panel Mount Discussion"
+        url: "https://www.bmwsporttouring.com/forum/16-oilheads/"
+        source_type: "Community"
+        authority_rank: 4
+        role: "Procedure discussion"
+        tags: ["fairing", "mount", "panel_removal"]
+        notes: "Common fastening methods and repair tips for cracked fairing mounts."
+      - title: "BMW Service Schedules (A&S Cycles)"
+        url: "http://www.ascycles.com/bmw_motorcycle_service_and_maintenance_schedules.aspx"
+        source_type: "Expert"
+        authority_rank: 6
+        role: "Inspection reference"
+        tags: ["inspection", "mounts", "stands"]
+        notes: "Confirms inspection intervals for frame mounts and stands."
+      - title: "Beemer Boneyard – Replacement Mounting Hardware"
+        url: "http://www.beemerboneyard.com/"
+        source_type: "Supplier"
+        authority_rank: 4
+        role: "Parts"
+        tags: ["bolts", "washers", "bushings"]
+        notes: "OEM-equivalent fasteners, pivot bolts, and bushings for stands and mounts."
+    routing:
+      keyword_bias:
+        - phrase: "frame"
+          weight: 2.0
+        - phrase: "mounting point"
+          weight: 1.8
+        - phrase: "stand"
+          weight: 1.6
+        - phrase: "subframe"
+          weight: 1.5
+        - phrase: "bracket"
+          weight: 1.4
+        - phrase: "footrest"
+          weight: 1.3
+        - phrase: "fairing mount"
+          weight: 1.2
+      fallback_groups: ["31", "33", "36"]
+
+  - group_id: "51"
+    name: "Equipment & Ancillaries – Fairings, Luggage, Mirrors, Windscreen, Body Hardware"
+    tags: ["equipment", "ancillary", "fairing", "mirror", "luggage", "windscreen", "lock", "paint", "hardware", "mount"]
+    oem:
+      primary_pdf: "R1150RT Repair Manual.pdf"
+      page_hint: "Group 51 section (ignition lock, fairing panels, mirror mounts, luggage carriers)"
+      sibling_docs:
+        - "R1150RT Riders Manual.pdf"
+        - "R1150RT Maintenance Instructions.pdf"
+    tasks:
+      - remove_and_reinstall_fairing_panels
+      - replace_or_adjust_mirror_housings
+      - service_luggage_mounts_and_locks
+      - install_or_adjust_windscreen_and_mechanism
+      - inspect_and_repair_body_hardware_threads
+      - refinish_or_touch_up_painted_surfaces
+      - verify_lockset_alignment_and_operation
+    symptoms:
+      - mirror_vibration_or_detachment
+      - windscreen_stuck_or_inoperative
+      - rattling_panels_or_loose_mounts
+      - luggage_lock_binding_or_key_mismatch
+      - cracked_fairing_panel_or_paint_peel
+    tools:
+      required:
+        - "Torx/Allen socket set for fairing and mirror fasteners"
+        - "Trim removal tools (non-marring)"
+        - "Torque wrench (3–20 Nm range)"
+      optional:
+        - "Panel alignment gauge or digital caliper"
+        - "Touch-up paint and plastic repair kit"
+        - "Dielectric grease for electrical connectors in mirrors/windscreen"
+    specs:
+      items:
+        - key: "mirror_mount_torque"
+          value: "9"
+          unit: "Nm"
+          source: "OEM"
+          note: "Do not overtighten to avoid cracking housing"
+        - key: "windscreen_motor_test"
+          value: "raise/lower fully three cycles without binding"
+          unit: null
+          source: "Expert"
+          note: "If motor stalls, inspect worm gear lubrication"
+        - key: "luggage_lock_key_code_reference"
+          value: "matches ignition key unless replaced"
+          unit: null
+          source: "OEM"
+          note: "Lockset coded at factory; replacement kits available"
+    resources:
+      - title: "RealOEM – Body Equipment & Mounting Components (R22 platform)"
+        url: "https://www.realoem.com/bmw/enUS/partgrp?id=0499-USA-09-2003-R22-BMW-R_1150_RT_00_0419%2C0499_"
+        source_type: "OEM"
+        authority_rank: 9
+        role: "Parts"
+        tags: ["fairing", "mirror", "windscreen", "mount", "lock", "luggage"]
+        notes: "Exploded diagrams for all body equipment and fasteners."
+      - title: "BMWR1150RT Riders Manual – Windscreen & Storage Operation"
+        url: "https://www.bmwmotorcycles.com/"
+        source_type: "OEM"
+        authority_rank: 8
+        role: "Operation"
+        tags: ["windscreen", "storage", "operation"]
+        notes: "Official procedures for windscreen, luggage, and mirror operation."
+      - title: "BMWSportTouring – Fairing Panel & Mirror Mount Threads"
+        url: "https://www.bmwsporttouring.com/forum/16-oilheads/"
+        source_type: "Community"
+        authority_rank: 4
+        role: "Repair discussion"
+        tags: ["fairing", "mirror", "mounts"]
+        notes: "Thread repair and panel alignment techniques."
+      - title: "Wunderlich America – Accessories & Windscreens"
+        url: "https://www.wunderlichamerica.com/"
+        source_type: "Supplier"
+        authority_rank: 4
+        role: "Aftermarket parts"
+        tags: ["windscreen", "mounts", "mirrors"]
+        notes: "Aftermarket windscreen and mirror hardware."
+      - title: "Paint & Refinishing Reference – Glasurit BMW Codes"
+        url: "https://www.glasurit.com/"
+        source_type: "Expert"
+        authority_rank: 5
+        role: "Finishing standard"
+        tags: ["paint", "color_code", "refinish"]
+        notes: "Factory color codes and refinishing guidelines."
+    routing:
+      keyword_bias:
+        - phrase: "mirror"
+          weight: 2.0
+        - phrase: "fairing panel"
+          weight: 1.8
+        - phrase: "windscreen"
+          weight: 1.6
+        - phrase: "luggage"
+          weight: 1.5
+        - phrase: "body hardware"
+          weight: 1.4
+        - phrase: "paint repair"
+          weight: 1.3
+        - phrase: "lockset"
+          weight: 1.2
+      fallback_groups: ["46", "52", "63"]
+
+  - group_id: "52"
+    name: "Seat System – Seat Mounts, Adjustment, Heating, Locks"
+    tags: ["seat", "rider_seat", "pillion", "mount", "height", "lock", "heated_seat", "comfort", "hardware"]
+    oem:
+      primary_pdf: "R1150RT Repair Manual.pdf"
+      page_hint: "Group 52 section (seat adjustment, mounting points, lock cylinder)"
+      sibling_docs:
+        - "R1150RT Riders Manual.pdf"
+        - "R1150RT Electrical Schematic.pdf"
+    tasks:
+      - remove_and_install_rider_and_passenger_seats
+      - adjust_seat_height_and_front_mount_positions
+      - inspect_and_lubricate_seat_lock_mechanism
+      - install_or_test_heated_seat_elements
+      - verify_seat_fuse_and_wiring_integrity
+      - replace_seat_mount_rubbers_and_bushings
+    symptoms:
+      - seat_loose_or_wobbly
+      - lock_cylinder_jamming_or_key_stiff
+      - heated_seat_inoperative
+      - discomfort_or_incorrect_height_setting
+      - corrosion_on_mounting_brackets
+    tools:
+      required:
+        - "Phillips/Torx screwdrivers"
+        - "Needle-nose pliers for seat pin clips"
+        - "Multimeter for heater-element continuity"
+      optional:
+        - "Plastic-safe lubricant (e.g., PTFE) for locks"
+        - "Trim alignment tool for seat mount guides"
+    specs:
+      items:
+        - key: "seat_height_positions"
+          value: "Two (front and rear adjustable)"
+          unit: null
+          source: "OEM"
+          note: "Front seat has dual-height adjustment; check for proper latch engagement"
+        - key: "heated_seat_voltage"
+          value: "12 V DC"
+          unit: null
+          source: "OEM"
+          note: "Heater draw ≈ 3 A; verify fuse rating 15 A shared with accessories"
+        - key: "lock_lubrication_interval"
+          value: "annual"
+          unit: null
+          source: "Expert"
+          note: "Use PTFE or graphite; avoid oil-based lubricants"
+    resources:
+      - title: "RealOEM – Seat & Mounting Assembly (R22 platform)"
+        url: "https://www.realoem.com/bmw/enUS/partgrp?id=0499-USA-09-2003-R22-BMW-R_1150_RT_00_0419%2C0499_"
+        source_type: "OEM"
+        authority_rank: 9
+        role: "Parts"
+        tags: ["seat", "lock", "mount", "heater"]
+        notes: "Exploded seat, latch, and heater component diagrams."
+      - title: "BMWR1150RT Riders Manual – Seat Adjustment & Heating"
+        url: "https://www.bmwmotorcycles.com/"
+        source_type: "OEM"
+        authority_rank: 8
+        role: "Operation"
+        tags: ["seat_height", "heater"]
+        notes: "Official seat height and heating control instructions."
+      - title: "Wunderlich & Sargent – Replacement & Comfort Seats"
+        url: "https://www.wunderlichamerica.com/"
+        source_type: "Supplier"
+        authority_rank: 4
+        role: "Aftermarket parts"
+        tags: ["comfort_seat", "heated_seat"]
+        notes: "Upgraded comfort and heated seat options for R1150RT."
+      - title: "BMWSportTouring – Seat Height & Lock Issues Thread"
+        url: "https://www.bmwsporttouring.com/forum/16-oilheads/"
+        source_type: "Community"
+        authority_rank: 4
+        role: "Diagnosis"
+        tags: ["seat_lock", "seat_adjustment"]
+        notes: "User discussions on seat fitment and lock repairs."
+      - title: "Beemer Boneyard – Seat Locks, Pins, and Rubbers"
+        url: "http://www.beemerboneyard.com/"
+        source_type: "Supplier"
+        authority_rank: 4
+        role: "Parts"
+        tags: ["lock", "pin", "rubber", "bushing"]
+        notes: "OEM-equivalent seat lock and mounting hardware kits."
+    routing:
+      keyword_bias:
+        - phrase: "seat height"
+          weight: 2.0
+        - phrase: "heated seat"
+          weight: 1.8
+        - phrase: "seat lock"
+          weight: 1.6
+        - phrase: "rider comfort"
+          weight: 1.5
+        - phrase: "seat adjustment"
+          weight: 1.4
+        - phrase: "mount bracket"
+          weight: 1.3
+      fallback_groups: ["51", "46", "61"]
+
+  - group_id: "61"
+    name: "General Electrical Equipment (Battery, Fuses/Relays, Grounds)"
+    tags: ["battery", "fuse", "relay", "ground", "charging", "alternator", "starter_circuit", "wiring_colors", "DIN"]
+    oem:
+      primary_pdf: "R1150RT Repair Manual.pdf"
+      page_hint: "Group 61 section (battery service, fusebox, grounding points, relay carriers)"
+      sibling_docs:
+        - "R1150RT Electrical Schematic.pdf"
+        - "R1150RT Maintenance Instructions.pdf"
+        - "R1150RT Riders Manual.pdf"
+    tasks:
+      - battery_test_and_service
+      - inspect_and_clean_grounds
+      - fuse_and_relay_check
+      - charging_system_output_test
+      - parasitic_draw_test
+      - wiring_repair_to_din_standard
+      - accessory_power_add_with_fuse_or_relay
+    symptoms:
+      - intermittent_no_start_or_click
+      - low_voltage_warning_or_abs_fault
+      - blown_fuse_recurring
+      - relay_chatter_or_heat
+      - dim_or_flickering_lights
+      - battery_not_holding_charge
+    tools:
+      required:
+        - "Digital multimeter (DCV, resistance, diode test)"
+        - "Battery charger/maintainer"
+      optional:
+        - "Clamp ammeter for parasitic draw"
+        - "Test light"
+        - "Relay puller and jumper leads"
+    specs:
+      items:
+        - key: "battery_type"
+          value: "12V AGM (typical Oilhead fitment)"
+          unit: null
+          source: "Expert"
+          note: "Confirm size/CCA by VIN; maintain on tender when parked"
+        - key: "charging_voltage_at_3k_rpm"
+          value: "13.8–14.4"
+          unit: "V"
+          source: "Expert"
+          note: "Measured across battery posts, lights on"
+        - key: "ground_resistance_frame_to_battery_neg"
+          value: "< 0.1"
+          unit: "Ω"
+          source: "Expert"
+          note: "Clean/retorque grounds if higher"
+    resources:
+      - title: "Thunderchild – System Checks (charging/diode board fundamentals)"
+        url: "http://thunderchild-design.com/info.html#chargsys"
+        source_type: "Expert"
+        authority_rank: 6
+        role: "Diagnosis"
+        tags: ["charging", "alternator", "diode_board"]
+        notes: "Foundational tests for low charging output." 
+      - title: "Buchanan – Motorcycle Charging System"
+        url: "http://www.buchanan1.net/charge.shtml"
+        source_type: "Expert"
+        authority_rank: 6
+        role: "Diagnosis"
+        tags: ["charging", "alternator", "regulator"]
+        notes: "Stepwise diagnosis of charge faults."
+      - title: "Largiader – Charging & Electrical Articles"
+        url: "http://www.largiader.com/articles/charging/"
+        source_type: "Expert"
+        authority_rank: 7
+        role: "Procedure supplement"
+        tags: ["charging", "oilhead", "field_fails"]
+        notes: "Oilhead-specific alternator/diode board insights."
+      - title: "Jhau – Starter/Electrical Reference"
+        url: "http://jhau.maliwi.de/mot/r-elec.html"
+        source_type: "Expert"
+        authority_rank: 6
+        role: "Diagnosis"
+        tags: ["starter", "wiring", "charging"]
+        notes: "Schematics, starter and relay logic notes."
+      - title: "R1150RT – Wiring Diagrams (community-compiled)"
+        url: "https://www.bmwsporttouring.com/topic/110863-r1150rt-electronics-schematics-use-at-your-own-risk/#comment-1194729"
+        source_type: "Community"
+        authority_rank: 5
+        role: "Diagram"
+        tags: ["schematic", "pinout"]
+        notes: "Useful when OEM diagrams aren’t handy; validate before use."
+      - title: "DIN Wiring Standards & Terminal Conventions"
+        url: "http://www.isham-research.co.uk/quattro/wiring/Typ85/terminals.html"
+        source_type: "Expert"
+        authority_rank: 5
+        role: "Standards"
+        tags: ["DIN", "terminals", "connectors"]
+        notes: "Interpreting DIN terminal numbering across BMW circuits."
+      - title: "Wiring Color Codes – Airheads/Oilheads overview"
+        url: "https://www.airheads.org/tech-tips/wiring-color-codes/"
+        source_type: "Expert"
+        authority_rank: 5
+        role: "Standards"
+        tags: ["color_codes", "wiring"]
+        notes: "Common BMW wire color abbreviations (e.g., BR=Brown ground)."
+      - title: "Fluke – Digital Multimeter Usage (primer)"
+        url: "http://support.fluke.com/find-sales...SEN-MAY-12&utm_medium=email&utm_source=Eloqua"
+        source_type: "Expert"
+        authority_rank: 4
+        role: "Method"
+        tags: ["dmm", "measurement"]
+        notes: "How to use DMM functions for safe diagnosis."
+      - title: "Relay Basics (Autoshop101)"
+        url: "http://www.autoshop101.com/forms/hweb2.pdf"
+        source_type: "Expert"
+        authority_rank: 5
+        role: "Theory"
+        tags: ["relay", "coil", "contacts"]
+        notes: "Understanding common automotive relay circuits."
+      - title: "GS-911 – Functionality Chart"
+        url: "https://www.hexgs911.com/function-chart/"
+        source_type: "Expert"
+        authority_rank: 6
+        role: "Diagnosis"
+        tags: ["diagnostics", "fault_codes", "live_values"]
+        notes: "Read/clear faults, live data; complements MoDiTeC-era procedures."
+    routing:
+      keyword_bias:
+        - phrase: "battery"
+          weight: 2.0
+        - phrase: "charging"
+          weight: 1.8
+        - phrase: "alternator"
+          weight: 1.6
+        - phrase: "fuse"
+          weight: 1.6
+        - phrase: "relay"
+          weight: 1.5
+        - phrase: "ground"
+          weight: 1.4
+        - phrase: "wiring diagram"
+          weight: 1.4
+        - phrase: "parasitic draw"
+          weight: 1.3
+        - phrase: "low voltage"
+          weight: 1.3
+      fallback_groups: ["12", "34", "62",
+
+  - group_id: "62"
+    name: "Instruments & Displays – Speedometer, Tachometer, Warning Lights"
+    tags: ["instruments", "cluster", "speedometer", "tachometer", "warning_lights", "abs_light", "oil_light", "clock", "odo", "diagnostic_display"]
+    oem:
+      primary_pdf: "R1150RT Repair Manual.pdf"
+      page_hint: "Group 62 section (instrument cluster removal, wiring, warning lamp functions)"
+      sibling_docs:
+        - "R1150RT Electrical Schematic.pdf"
+        - "R1150RT Maintenance Instructions.pdf"
+        - "R1150RT Riders Manual.pdf"
+    tasks:
+      - remove_and_reinstall_instrument_cluster
+      - inspect_and_clean_cluster_connectors
+      - replace_bulbs_or_backlight_leds
+      - test_warning_lamp_functions
+      - verify_abs_warning_sequence_and_reset
+      - check_odometer_and_trip_function
+    symptoms:
+      - dead_or_flickering_instruments
+      - warning_lights_stay_on_after_start
+      - no_speed_or_tach_reading
+      - clock_reset_after_key_cycle
+      - condensation_inside_cluster
+    tools:
+      required:
+        - "Torx drivers for fairing and cluster removal"
+        - "Digital multimeter"
+      optional:
+        - "GS-911 or diagnostic tool for ABS/cluster fault reset"
+        - "Bulb puller / small pliers"
+    specs:
+      items:
+        - key: "speed_sensor_type"
+          value: "Hall-effect sensor (rear wheel ABS ring input)"
+          unit: null
+          source: "OEM"
+          note: "Shared with ABS sensor; diagnostic crossover with Group 34"
+        - key: "warning_light_test"
+          value: "All lamps illuminate at key-on; extinguish after system OK"
+          unit: null
+          source: "OEM"
+          note: "ABS and oil lights have timed self-test behavior"
+        - key: "cluster_removal_time"
+          value: "approx. 15 min"
+          unit: null
+          source: "Expert"
+          note: "Includes mirror and fairing panel removal"
+    resources:
+      - title: "RealOEM – Instruments & Gauges (R22 platform)"
+        url: "https://www.realoem.com/bmw/enUS/partgrp?id=0499-USA-09-2003-R22-BMW-R_1150_RT_00_0419%2C0499_"
+        source_type: "OEM"
+        authority_rank: 9
+        role: "Parts"
+        tags: ["speedometer", "tachometer", "cluster", "warning_lights"]
+        notes: "Exploded diagram of the instrument cluster assembly."
+      - title: "BMWR1150RT Riders Manual – Indicator and Warning Lamp Reference"
+        url: "https://www.bmwmotorcycles.com/"
+        source_type: "OEM"
+        authority_rank: 8
+        role: "Theory"
+        tags: ["lamp_meanings", "ABS_light", "oil_pressure_light"]
+        notes: "OEM explanation of lamp sequences and meanings."
+      - title: "BMWSportTouring – Cluster Backlight and Lamp Replacement Threads"
+        url: "https://www.bmwsporttouring.com/forum/16-oilheads/"
+        source_type: "Community"
+        authority_rank: 4
+        role: "Procedure discussion"
+        tags: ["cluster", "bulbs", "backlight"]
+        notes: "Photos and walkthroughs of cluster bulb replacement."
+      - title: "Largiader – ABS and Instrument Interaction Overview"
+        url: "http://www.largiader.com/abs/abs2.html"
+        source_type: "Expert"
+        authority_rank: 7
+        role: "Diagnosis"
+        tags: ["ABS", "warning_lights", "diagnostics"]
+        notes: "Clarifies how ABS status affects cluster warnings."
+    routing:
+      keyword_bias:
+        - phrase: "speedometer"
+          weight: 2.0
+        - phrase: "tachometer"
+          weight: 1.8
+        - phrase: "instrument cluster"
+          weight: 1.6
+        - phrase: "warning lights"
+          weight: 1.5
+        - phrase: "abs light"
+          weight: 1.4
+        - phrase: "oil light"
+          weight: 1.3
+      fallback_groups: ["61", "34", "63"]
+
+  - group_id: "63"
+    name: "Lighting Systems – Headlamp, Indicators, Tail & Auxiliary Lights"
+    tags: ["lighting", "headlamp", "taillight", "indicators", "turn_signal", "brake_light", "beam_adjustment", "fog_light", "relay"]
+    oem:
+      primary_pdf: "R1150RT Repair Manual.pdf"
+      page_hint: "Group 63 section (headlight adjustment, lamp replacement, indicator wiring, fuses)"
+      sibling_docs:
+        - "R1150RT Electrical Schematic.pdf"
+        - "R1150RT Riders Manual.pdf"
+    tasks:
+      - replace_headlamp_or_indicator_bulbs
+      - adjust_headlight_beam_alignment
+      - test_brake_and_tail_light_circuits
+      - replace_turn_signal_lenses_and_housings
+      - check_and_replace_relay_or_fuse_for_lamps
+      - retrofit_aux_or_fog_lights_using_fused_circuit
+    symptoms:
+      - headlight_out_or_dim
+      - indicator_flashes_fast_or_stays_on
+      - brake_light_inoperative
+      - fuse_blows_repeatedly
+      - uneven_beam_or_misaligned_headlight
+    tools:
+      required:
+        - "Phillips/Torx screwdrivers for lens assemblies"
+        - "Digital multimeter or test lamp"
+      optional:
+        - "Beam-setter or wall pattern chart for alignment"
+        - "Replacement relay assortment"
+    specs:
+      items:
+        - key: "headlamp_bulb_type"
+          value: "H7 12 V 55 W (high and low beam)"
+          unit: null
+          source: "OEM"
+          note: "Replace both bulbs as a pair for balanced output"
+        - key: "indicator_bulb_type"
+          value: "12 V 10 W amber (BAU15s)"
+          unit: null
+          source: "OEM"
+          note: "Use correct offset-pin base"
+        - key: "brake_tail_bulb"
+          value: "P21/5W dual-filament"
+          unit: null
+          source: "OEM"
+          note: "Commonly shared across Oilhead range"
+        - key: "fuse_for_lighting_circuit"
+          value: "F1–F3 (15 A typ.)"
+          unit: null
+          source: "OEM"
+          note: "Verify with schematic; varies by market"
+    resources:
+      - title: "RealOEM – Lighting Components (R22 platform)"
+        url: "https://www.realoem.com/bmw/enUS/partgrp?id=0499-USA-09-2003-R22-BMW-R_1150_RT_00_0419%2C0499_"
+        source_type: "OEM"
+        authority_rank: 9
+        role: "Parts"
+        tags: ["headlamp", "indicator", "taillight", "relay"]
+        notes: "Exploded diagrams for lighting assemblies and wiring connectors."
+      - title: "BMWR1150RT Riders Manual – Lighting Operation"
+        url: "https://www.bmwmotorcycles.com/"
+        source_type: "OEM"
+        authority_rank: 8
+        role: "Theory"
+        tags: ["lighting", "switchgear"]
+        notes: "OEM operation and adjustment instructions for all lamps."
+      - title: "BMWSportTouring – Headlight Upgrade / LED Retrofit Threads"
+        url: "https://www.bmwsporttouring.com/forum/16-oilheads/"
+        source_type: "Community"
+        authority_rank: 4
+        role: "Modification discussion"
+        tags: ["led", "headlamp", "auxiliary"]
+        notes: "Real-world retrofits and CANbus considerations."
+      - title: "Daniel Stern Lighting – Headlamp Aim and Beam Pattern Guide"
+        url: "http://www.danielsternlighting.com/tech/aim/aim.html"
+        source_type: "Expert"
+        authority_rank: 6
+        role: "Standards"
+        tags: ["headlamp_aim", "beam_pattern", "safety"]
+        notes: "Accurate beam-aiming method for European-spec optics."
+      - title: "Beemer Boneyard – Lighting Bulbs and Relays"
+        url: "http://www.beemerboneyard.com/"
+        source_type: "Supplier"
+        authority_rank: 4
+        role: "Parts"
+        tags: ["bulb", "relay", "socket"]
+        notes: "Common OEM-equivalent bulbs, relays, and sockets for R-series."
+    routing:
+      keyword_bias:
+        - phrase: "headlight"
+          weight: 2.0
+        - phrase: "taillight"
+          weight: 1.8
+        - phrase: "turn signal"
+          weight: 1.6
+        - phrase: "brake light"
+          weight: 1.5
+        - phrase: "indicator"
+          weight: 1.4
+        - phrase: "beam adjustment"
+          weight: 1.3
+        - phrase: "lighting relay"
+          weight: 1.2
+      fallback_groups: ["61", "62", "34"]

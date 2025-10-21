@@ -1,0 +1,34 @@
+```yaml name=data/schema/master_reference.yaml
+# canonical parts DB schema (YAML)
+part:
+  id: uuid
+  manufacturer: string
+  part_number: string
+  name: string
+  description: markdown
+  category: string
+  compatible_models:    # list of model numbers or product families
+    - string
+  specifications:
+    weight: string
+    dimensions: string
+    material: string
+  stock:
+    quantity: integer
+    location: string
+  maintenance:
+    recommended_interval: string
+    procedures:             # array of step objects or references to manuals
+      - id: uuid
+        title: string
+        steps:
+          - step_number: 1
+            instruction: string
+  documents:
+    - url: string
+      type: (manual | schematic | spec)
+  tags:
+    - string
+  created_at: datetime
+  updated_at: datetime
+```
